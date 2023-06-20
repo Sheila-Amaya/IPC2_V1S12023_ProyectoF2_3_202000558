@@ -1,0 +1,26 @@
+<usuarios>
+    <usuario>
+        <rol>cliente</rol>
+        <nombre>John</nombre>
+        <apellido>Doe</apellido>
+        <telefono>123456789</telefono>
+        <correo>john.doe@example.com</correo>
+        <contrasena>mipassword123</contrasena>
+    </usuario>
+    <usuario>
+        <rol>administrador</rol>
+        <nombre>Jane</nombre>
+        <apellido>Smith</apellido>
+        <telefono>987654321</telefono>
+        <correo>jane.smith@example.com</correo>
+        <contrasena>password456</contrasena>
+    </usuario>
+    <usuario>
+        <rol>cliente</rol>
+        <nombre>Alexander</nombre>
+        <apellido>Gordillo</apellido>
+        <telefono>123456789</telefono>
+        <correo>alex.doe@example.com</correo>
+        <contrasena>123</contrasena>
+    </usuario>
+</usuarios>
