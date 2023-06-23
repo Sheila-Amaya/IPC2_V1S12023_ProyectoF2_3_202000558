@@ -2,13 +2,16 @@ from flask import Flask, redirect, render_template, request
 from Lectura import *
 from Estructuras.EnlazadaSimple import *
 from usuario import *
+from Estructuras.DobleEnlazadaCircular import *
 
 app = Flask(__name__)
 
 # Declarar una variable global como una instancia de EnlazadaSimple
 listaUsuarios = EnlazadaSimple()
+listaCategorias = EnlazadaSimple()
+listaPeliculas =    CicularDobleEnlazada()
 
-def crear_usuario_por_defecto():
+def crear_usuario_por_defecto(): #usuario administrador
     # Crear un usuario por defecto
     rol = "administrador"
     nombre = "admi"
@@ -24,7 +27,6 @@ def crear_usuario_por_defecto():
 @app.route('/') #PANTALLA INICIO
 def home():
     return render_template('home.html')
-
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -46,7 +48,6 @@ def login():
         # Si no se encuentra un usuario con las credenciales correctas, se muestra un mensaje de error
         error = "Credenciales incorrectas. Vuelve a intentarlo."
         return render_template('login.html', error=error)
-
     return render_template('login.html')
 
 @app.route('/ventana_cliente')
@@ -64,6 +65,7 @@ def ventana_administrador():
 def gestion_usuario():
     return render_template('gestionU.html')
 
+#CARGAR XML DE USUARIO
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_xml():
     global listaUsuarios
@@ -174,6 +176,151 @@ def modificar_usuario():
 def gestion_categoria():
     # Lógica y renderizado de la página del panel de categorias
     return render_template('gestionC.html')
+
+#CARGAR XML CATEGORIAS Y PELICULAS
+@app.route('/upload2', methods=['GET', 'POST'])
+def xml_categoria():
+    global listaCategorias
+    global listaPeliculas
+    
+    if request.method == 'POST':
+        if 'xml_file' not in request.files:
+            return "Error: No se ha seleccionado ningún archivo"
+        
+        xml_file = request.files['xml_file']
+        
+        if xml_file.filename == '':
+            return "Error: No se ha seleccionado ningún archivo"
+        
+        if xml_file and xml_file.filename.endswith('.xml'):
+            # Crear una instancia de la clase Lectura
+            lectura = Lectura()
+            # Llamar al método lecturaCP() para procesar el XML
+            resultado = lectura.lecturaCP(xml_file)
+            
+            if resultado is not None:
+                categorias_nuevas, peliculas_nuevas = resultado
+                if listaCategorias.estaVacia():
+                    listaCategorias = categorias_nuevas
+                else:
+                    temp = categorias_nuevas.primero
+                    while temp:
+                        listaCategorias.agregarUltimo(temp.dato)
+                        temp = temp.siguiente
+
+                return "Archivo XML cargado y procesado con éxito"
+            else:
+                return "Error al procesar el archivo XML"
+        else:
+            return "Error: El archivo debe tener extensión .xml"
+    
+    # Si la solicitud es GET, simplemente muestra el formulario
+    return '''
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="xml_file">
+        <input type="submit" value="Cargar">
+    </form>
+    '''
+
+@app.route('/mostrar_cp')
+def mostrar_c():
+    # Utiliza la variable global listaUsuarios para pasar la lista de usuarios a la plantilla HTML
+    return render_template('categorias.html', categorias=listaCategorias)
+
+@app.route('/agregar_categoria', methods=['GET', 'POST'])
+def agregar_categoria():
+    if request.method == 'POST':
+        nombre_categoria = request.form['nombre_categoria']
+        agregar_pelicula = request.form.get('agregar_pelicula')
+        if agregar_pelicula == 'si':
+            titulo = request.form['titulo']
+            director = request.form['director']
+            anio = request.form['anio']
+            fecha = request.form['fecha']
+            hora = request.form['hora']
+            imagen = request.form['imagen']
+            precio = float(request.form['precio'])
+            categoria = listaCategorias.buscarPorCategoria(nombre_categoria)
+            if categoria is not None:
+                pelicula = Pelicula(titulo, director, anio, fecha, hora, imagen, precio)
+                categoria.pelicula.agregarFinal(pelicula)
+                mensaje = "Película agregada a la categoría existente."
+            else:
+                peliculas = CicularDobleEnlazada()
+                pelicula = Pelicula(titulo, director, anio, fecha, hora, imagen, precio)
+                peliculas.agregarFinal(pelicula)
+                nueva_categoria = Categoria(nombre_categoria, peliculas)
+                listaCategorias.agregarUltimo(nueva_categoria)
+                mensaje = "Categoría y película agregadas con éxito."
+        else:
+            mensaje = "No se agregó ninguna película a la categoría."
+        return render_template('agregar_categoria.html', mensaje=mensaje)
+    return render_template('agregar_categoria.html')
+
+@app.route('/modificar_categoria', methods=['GET', 'POST'])
+def modificar_categoria():
+    if request.method == 'POST':
+        nombre_categoria_actual = request.form['nombre_categoria_actual']
+        # Buscar la categoría por nombre actual en la lista de categorías
+        categoria = listaCategorias.buscarPorCategoria(nombre_categoria_actual)
+        if categoria is not None:
+            mensaje = "Categoría encontrada. ¿Desea modificar alguna película?"
+            if request.form.get('modificar_pelicula') == 'si':
+                nombre_pelicula = request.form['nombre_pelicula']
+                # Buscar la película por nombre en la lista de películas de la categoría
+                pelicula = categoria.pelicula.buscarPeli(nombre_pelicula)
+                if pelicula is not None:
+                    # Obtener los nuevos datos de la película
+                    nuevo_titulo = request.form['nuevo_titulo']
+                    nuevo_director = request.form['nuevo_director']
+                    nuevo_anio = request.form['nuevo_anio']
+                    nuevo_fecha = request.form['nuevo_fecha']
+                    nuevo_hora = request.form['nuevo_hora']
+                    nuevo_imagen = request.form['nuevo_imagen']
+                    nuevo_precio = float(request.form['nuevo_precio'])
+                    # Modificar los datos de la película
+                    pelicula.titulo = nuevo_titulo
+                    pelicula.director = nuevo_director
+                    pelicula.anio = nuevo_anio
+                    pelicula.fecha = nuevo_fecha
+                    pelicula.hora = nuevo_hora
+                    pelicula.imagen = nuevo_imagen
+                    pelicula.precio = nuevo_precio
+                    mensaje = "La película ha sido modificada con éxito."
+                else:
+                    mensaje = "No se encontró ninguna película con el nombre especificado."
+            # Modificar el nombre de la categoría si se proporcionó uno nuevo
+            nuevo_nombre_categoria = request.form['nuevo_nombre_categoria']
+            if nuevo_nombre_categoria:
+                categoria.nombre = nuevo_nombre_categoria
+            return render_template('modificar_categoria.html', categoria=categoria, mensaje=mensaje)
+        else:
+            mensaje = "No se encontró ninguna categoría con el nombre especificado."
+            return render_template('modificar_categoria.html', mensaje=mensaje)
+    return render_template('modificar_categoria.html')
+
+@app.route('/eliminar_categoria', methods=['GET', 'POST'])
+def eliminar_categoria():
+    if request.method == 'POST':
+        nombre_categoria = request.form['nombre_categoria']
+        categoria = listaCategorias.buscarPorCategoria(nombre_categoria)
+        if categoria is not None:
+            mensaje = "Categoría encontrada. ¿Desea eliminar alguna película?"
+            if request.form.get('eliminar_pelicula') == 'si':
+                nombre_pelicula = request.form['nombre_pelicula']
+                pelicula = categoria.pelicula.buscarPeli(nombre_pelicula)
+                if pelicula is not None:
+                    categoria.pelicula.eliminar(nombre_pelicula)
+                    mensaje = "La película ha sido eliminada de la categoría."
+                else:
+                    mensaje = "No se encontró ninguna película con el nombre especificado."
+            else:
+                listaCategorias.eliminarPorCategoria(nombre_categoria)
+                mensaje = "La categoría y todas sus películas han sido eliminadas."
+        else:
+            mensaje = "No se encontró ninguna categoría con el nombre especificado."
+        return render_template('eliminar_categoria.html', mensaje=mensaje)
+    return render_template('eliminar_categoria.html')
 
 @app.route('/logout')
 def logout():

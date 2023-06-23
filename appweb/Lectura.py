@@ -150,7 +150,7 @@ class Lectura:
                     
                     listaCategorias.agregarUltimo(Categoria(nombre, listaPeliculas))
             
-            listaCategorias.recorrerCategorias()
+            #listaCategorias.recorrerCategorias()
             
             return listaCategorias, listaPeliculas
         
