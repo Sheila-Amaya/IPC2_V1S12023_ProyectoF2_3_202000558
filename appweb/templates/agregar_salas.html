@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Agregar Salas</title>
+</head>
+<body>
+    <h1>Agregar Salas</h1>
+    
+    {% if mensaje %}
+    <p>{{ mensaje }}</p>
+    {% endif %}
+    
+    <form method="POST" action="/agregar_salas">
+        <label for="nombre_cine">Nombre del Cine:</label>
+        <input type="text" id="nombre_cine" name="nombre_cine">
+        
+        <br><br>
+        
+        <label for="agregar_sala">Agregar Sala:</label>
+        <select id="agregar_sala" name="agregar_sala">
+            <option value="si">Sí</option>
+            <option value="no">No</option>
+        </select>
+        
+        <br><br>
+        
+        <div id="sala_fields">
+            <label for="numero_sala">Número de Sala:</label>
+            <input type="text" id="numero_sala" name="numero_sala">
+            
+            <br><br>
+            
+            <label for="asientos_sala">Cantidad de Asientos:</label>
+            <input type="text" id="asientos_sala" name="asientos_sala">
+        </div>
+        
+        <br><br>
+        
+        <input type="submit" value="Agregar">
+    </form>
+</body>
+</html>

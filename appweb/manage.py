@@ -3,13 +3,16 @@ from Lectura import *
 from Estructuras.EnlazadaSimple import *
 from usuario import *
 from Estructuras.DobleEnlazadaCircular import *
+from Estructuras.DobleEnlazada import *
 
 app = Flask(__name__)
 
-# Declarar una variable global como una instancia de EnlazadaSimple
-listaUsuarios = EnlazadaSimple()
+
+listaUsuarios = EnlazadaSimple() # Declarar una variable global como una instancia de EnlazadaSimple
 listaCategorias = EnlazadaSimple()
 listaPeliculas =    CicularDobleEnlazada()
+listaCine = ListaDobleEnlazada()
+listaSala = EnlazadaSimple()
 
 def crear_usuario_por_defecto(): #usuario administrador
     # Crear un usuario por defecto
@@ -321,6 +324,147 @@ def eliminar_categoria():
             mensaje = "No se encontró ninguna categoría con el nombre especificado."
         return render_template('eliminar_categoria.html', mensaje=mensaje)
     return render_template('eliminar_categoria.html')
+
+#GESTIONAR SALAS Y CINE
+@app.route('/gestionar_salas')
+def gestion_salas():
+    # Lógica y renderizado de la página del panel de categorias
+    return render_template('gestionS.html')
+
+@app.route('/upload3', methods=['GET', 'POST'])
+def xml_sala():
+    global listaSala
+    global listaCine
+    
+    if request.method == 'POST':
+        if 'xml_file' not in request.files:
+            return "Error: No se ha seleccionado ningún archivo"
+        
+        xml_file = request.files['xml_file']
+        
+        if xml_file.filename == '':
+            return "Error: No se ha seleccionado ningún archivo"
+        
+        if xml_file and xml_file.filename.endswith('.xml'):
+            # Crear una instancia de la clase Lectura
+            lectura = Lectura()
+            # Llamar al método lecturaS() para procesar el XML
+            resultado = lectura.lecturaS(xml_file)
+            
+            if resultado is not None:
+                listaCine, listaSala = resultado
+                return "Archivo XML cargado y procesado con éxito"
+            else:
+                return "Error al procesar el archivo XML"
+        else:
+            return "Error: El archivo debe tener extensión .xml"
+    
+    # Si la solicitud es GET, simplemente muestra el formulario
+    return '''
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="xml_file">
+        <input type="submit" value="Cargar">
+    </form>
+    '''
+
+@app.route('/mostrar_s')
+def mostrar_s():
+    return render_template('salas.html', cines=listaCine)
+
+@app.route('/modificar_cine', methods=['GET', 'POST'])
+def modificar_cine():
+    if request.method == 'POST':
+        nombre_cine = request.form['nombre_cine']
+        nuevo_nombre_cine = request.form['nuevo_nombre_cine']
+        numero_sala = request.form['numero_sala']
+        nuevo_numero_sala = request.form['nuevo_numero_sala']
+        nuevo_asientos_sala = request.form['nuevo_asientos_sala']
+        
+        cine_encontrado = None
+        for cine in listaCine:  # listaCine es la lista doblemente enlazada de cines
+            if cine.nombre == nombre_cine:
+                cine_encontrado = cine
+                break
+        
+        if cine_encontrado is not None:
+            cine_encontrado.nombre = nuevo_nombre_cine
+            
+            sala_encontrada = None
+            for sala in cine_encontrado.sala:  # salas es la lista simple de salas dentro del cine
+                if sala.num == numero_sala:
+                    sala_encontrada = sala
+                    break
+            
+            if sala_encontrada is not None:
+                sala_encontrada.num = nuevo_numero_sala
+                sala_encontrada.asientos = nuevo_asientos_sala
+                mensaje = "Cine y sala modificados con éxito."
+            else:
+                mensaje = "No se encontró ninguna sala con el número especificado."
+        else:
+            mensaje = "No se encontró ningún cine con el nombre especificado."
+        
+        return render_template('modificar_cine.html', mensaje=mensaje)
+    
+    return render_template('modificar_cine.html')
+
+@app.route('/agregar_salas', methods=['GET', 'POST'])
+def agregar_sala():
+    if request.method == 'POST':
+        nombre_cine = request.form['nombre_cine']
+        agregar_sala = request.form.get('agregar_sala')
+        
+        if agregar_sala == 'si':
+            numero_sala = request.form['numero_sala']
+            asientos_sala = request.form['asientos_sala']
+            
+            if not listaCine.estaVacia():
+                cine = listaCine.buscarCine(nombre_cine)
+                
+                if cine is not None:
+                    sala = Sala(numero_sala, asientos_sala)
+                    cine.sala.agregarUltimo(sala)
+                    mensaje = "Sala agregada al cine existente."
+                else:
+                    salas = EnlazadaSimple()
+                    sala = Sala(numero_sala, asientos_sala)
+                    salas.agregarUltimo(sala)
+                    nuevo_cine = Cine(nombre_cine, salas)
+                    listaCine.agregarUltimo(nuevo_cine)
+                    mensaje = "Cine y sala agregados con éxito."
+            else:
+                salas = EnlazadaSimple()
+                sala = Sala(numero_sala, asientos_sala)
+                salas.agregarUltimo(sala)
+                nuevo_cine = Cine(nombre_cine, salas)
+                listaCine.agregarUltimo(nuevo_cine)
+                mensaje = "Se creó un nuevo cine con la sala."
+        else:
+            mensaje = "No se agregó ninguna sala al cine."
+            
+        return render_template('agregar_salas.html', mensaje=mensaje)
+    
+    return render_template('agregar_salas.html')
+
+@app.route('/eliminar_cine', methods=['GET', 'POST'])
+def eliminar_cine():
+    if request.method == 'POST':
+        nombre_cine = request.form['nombre_cine']
+        cine = listaCine.buscarCine(nombre_cine)
+        if cine is not None:
+            listaCine.eliminarPorCine(nombre_cine)
+            mensaje = "El cine ha sido eliminado exitosamente."
+            return render_template('eliminar_cine.html', mensaje=mensaje)
+        else:
+            mensaje = "No se encontró ningún cine con el nombre especificado."
+            return render_template('eliminar_cine.html', mensaje=mensaje)
+
+    return render_template('eliminar_cine.html')
+
+#GESTION BOLETOS
+
+
+#CLIENTE
 
 @app.route('/logout')
 def logout():

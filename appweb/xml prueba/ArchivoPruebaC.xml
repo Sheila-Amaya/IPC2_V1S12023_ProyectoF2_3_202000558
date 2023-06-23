@@ -8,7 +8,7 @@
                 <anio>2019</anio>
                 <fecha>2023-06-05</fecha>
                 <hora>18:30</hora>
-                <imagen>https://picfiles.alphacoders.com/458/thumb-458644.jpg</imagen>
+                <imagen>https://usaccinema.com/image1.png</imagen>
                 <precio>42</precio>
             </pelicula>
             <pelicula>
@@ -17,7 +17,7 @@
                 <anio>2014</anio>
                 <fecha>2023-06-06</fecha>
                 <hora>20:00</hora>
-                <imagen>https://cdn.shopify.com/s/files/1/0969/9128/products/JohnWick-KeanuReeves-HollywoodEnglishActionMoviePoster-3_032d5e45-69d3-45b2-9481-f5a8a100cf8c.jpg?v=1649071626</imagen>
+                <imagen>https://usaccinema.com/image2.png</imagen>
                 <precio>45</precio>
             </pelicula>
             <pelicula>
@@ -26,7 +26,7 @@
                 <anio>2018</anio>
                 <fecha>2023-06-07</fecha>
                 <hora>19:15</hora>
-                <imagen>https://www.onderhond.com/img/posters/mission-impossible-fallout.jpg</imagen>
+                <imagen>https://usaccinema.com/image2.png</imagen>
                 <precio>55</precio>
             </pelicula>
         </peliculas>
@@ -40,7 +40,7 @@
                 <anio>2016</anio>
                 <fecha>2023-06-05</fecha>
                 <hora>20:30</hora>
-                <imagen>https://wallpapercave.com/wp/wp9419631.jpg</imagen>
+                <imagen>https://usaccinema.com/image5.png</imagen>
                 <precio>65</precio>
             </pelicula>
             <pelicula>
@@ -49,8 +49,6 @@
                 <anio>2007</anio>
                 <fecha>2023-06-06</fecha>
                 <hora>21:00</hora>
-                <imagen>https://i.pinimg.com/originals/4b/49/b6/4b49b66956c004409f5dfc323faf432f.jpg</imagen>
-                <precio>42</precio>
             </pelicula>
             <pelicula>
                 <titulo>Bridesmaids</titulo>
@@ -58,7 +56,16 @@
                 <anio>2011</anio>
                 <fecha>2023-06-07</fecha>
                 <hora>20:15</hora>
-                <imagen>https://assets.nflxext.com/us/boxshots/hd1080/70184047.jpg</imagen>
+                <imagen>https://usaccinema.com/image3.png</imagen>
+                <precio>42</precio>
+            </pelicula>
+                <pelicula>
+                <titulo>B</titulo>
+                <director>Paul Feig</director>
+                <anio>2011</anio>
+                <fecha>2023-06-07</fecha>
+                <hora>20:15</hora>
+                <imagen>https://usaccinema.com/image3.png</imagen>
                 <precio>42</precio>
             </pelicula>
         </peliculas>

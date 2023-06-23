@@ -505,7 +505,6 @@ class Menu:
 
         self.gestionarSalas()
 
-        self.gestionarSalas()
 
     def modificarSala(self):
         self.console.print("[cyan]\tIngrese el nombre del cine el cual desea modificar: [/cyan]")
