@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Eliminar Categoría</title>
+</head>
+<body>
+    <h1>Eliminar Categoría</h1>
+    <form method="POST" action="/eliminar_categoria">
+        <label>Nombre de la categoría:</label>
+        <input type="text" name="nombre_categoria" required>
+        <br>
+        <input type="radio" name="eliminar_pelicula" value="no" checked> Eliminar categoría completa<br>
+        <input type="radio" name="eliminar_pelicula" value="si"> Eliminar película de la categoría<br>
+        <br>
+        <label>Nombre de la película (solo si se selecciona eliminar película):</label>
+        <input type="text" name="nombre_pelicula">
+        <br>
+        <input type="submit" value="Eliminar">
+    </form>
+    {% if mensaje %}
+    <p>{{ mensaje }}</p>
+    {% endif %}
+</body>
+</html>

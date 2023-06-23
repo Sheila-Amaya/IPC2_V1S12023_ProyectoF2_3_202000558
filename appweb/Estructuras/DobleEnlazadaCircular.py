@@ -45,13 +45,13 @@ class CicularDobleEnlazada:
                 if nodo_actual == self.primero:  # Si se ha recorrido toda la lista sin encontrar el dato
                     return False
 
-    def eliminar(self, dato):
-        if self.esta_vacia():
+    def eliminar(self, nombre_pelicula):
+        if self.estaVacia():
             return
 
         nodo_actual = self.primero
-        while nodo_actual:
-            if nodo_actual.dato == dato:  # Si se encuentra el dato buscado
+        while True:
+            if nodo_actual.dato.titulo == nombre_pelicula:  # Si se encuentra la película buscada
                 if nodo_actual == self.primero:  # Si el nodo a eliminar es el primer nodo
                     self.primero = nodo_actual.siguiente
                     self.primero.anterior = self.ultimo
@@ -64,9 +64,9 @@ class CicularDobleEnlazada:
                     nodo_actual.anterior.siguiente = nodo_actual.siguiente
                     nodo_actual.siguiente.anterior = nodo_actual.anterior
                 return
-            
+
             nodo_actual = nodo_actual.siguiente
-            if nodo_actual == self.primero:  # Si se ha recorrido toda la lista sin encontrar el dato
+            if nodo_actual == self.primero:  # Si se ha recorrido toda la lista sin encontrar la película
                 return
 
     def recorrerPeliculas(self):
