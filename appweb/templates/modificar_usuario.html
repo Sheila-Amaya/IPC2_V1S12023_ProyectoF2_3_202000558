@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Modificar Usuario</title>
+</head>
+<body>
+    <h1>Modificar Usuario</h1>
+    
+    {% if mensaje %}
+    <p>{{ mensaje }}</p>
+    {% endif %}
+    
+    <form method="POST" action="/modificar_usuario">
+        <label for="correo">Correo del Usuario:</label>
+        <input type="email" id="correo" name="correo" required>
+        <br><br>
+        
+        <label for="nuevo_nombre">Nuevo Nombre:</label>
+        <input type="text" id="nuevo_nombre" name="nuevo_nombre" required>
+        <br><br>
+        
+        <label for="nuevo_apellido">Nuevo Apellido:</label>
+        <input type="text" id="nuevo_apellido" name="nuevo_apellido" required>
+        <br><br>
+        
+        <label for="nuevo_telefono">Nuevo Teléfono:</label>
+        <input type="text" id="nuevo_telefono" name="nuevo_telefono" required>
+        <br><br>
+        
+        <label for="nuevo_correo">Nuevo Correo:</label>
+        <input type="email" id="nuevo_correo" name="nuevo_correo" required>
+        <br><br>
+        
+        <label for="nueva_contrasena">Nueva Contraseña:</label>
+        <input type="password" id="nueva_contrasena" name="nueva_contrasena" required>
+        <br><br>
+        
+        <input type="submit" value="Modificar Usuario">
+    </form>
+</body>
+</html>
