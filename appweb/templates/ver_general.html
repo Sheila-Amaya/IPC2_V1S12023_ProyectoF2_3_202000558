@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Listado General de Categorías y Películas</title>
+</head>
+<body>
+    <h1>Listado General de Categorías y Películas</h1>
+
+    <ul>
+        {% for categoria in categorias %}
+        <li>{{ categoria.nombre }}</li>
+        <br>
+        <ul>
+            {% for pelicula in categoria.pelicula %}
+            <li>
+                <strong>Título:</strong> {{ pelicula.titulo }}<br>
+                <strong>Director:</strong> {{ pelicula.director }}<br>
+                <strong>Año:</strong> {{ pelicula.anio }}<br>
+                <strong>Fecha:</strong> {{ pelicula.fecha }}<br>
+                <strong>Hora:</strong> {{ pelicula.hora }}<br>
+                <strong>Imagen:</strong> {{ pelicula.imagen }}<br>
+                <strong>Precio:</strong> {{ pelicula.precio }}<br>
+            </li>
+            <br>
+            {% endfor %}
+        </ul>
+        {% endfor %}
+    </ul>
+
+    <br>
+    <a href="/ventana_cliente">Regresar</a>
+</body>
+</html>

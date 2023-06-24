@@ -131,6 +131,7 @@ class CicularDobleEnlazada:
         while pelicula_actual:
             print("\t\tTítulo:", pelicula_actual.dato.titulo)
             pelicula_actual = pelicula_actual.siguiente
+            return pelicula_actual.dato
             if pelicula_actual == self.primero:
                 break
             
@@ -146,7 +147,7 @@ class CicularDobleEnlazada:
                 print("\t\tTítulo:", pelicula_actual.dato.titulo)
                 print("\t\tFecha función:", pelicula_actual.dato.fecha)
                 print("\t\tHora de la funcion:", pelicula_actual.dato.hora)
-                return
+                return pelicula_actual.dato
                 
             pelicula_actual = pelicula_actual.siguiente
             if pelicula_actual == self.primero:

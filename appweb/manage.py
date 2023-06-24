@@ -618,11 +618,54 @@ def eliminar_tarjeta():
 
     return render_template('eliminar_tarjeta.html')
 
-#GESTION BOLETOS
+#GESTION BOLETOS ADMINISTRADOR
 
+#REGISTRAR USUARIO CLIENTE
+@app.route('/agregar_usuario_cliente', methods=['GET', 'POST'])
+def agregar_cliente():
+    if request.method == 'POST':
+        rol = "cliente"
+        nombre = request.form.get('nombre')
+        apellido = request.form.get('apellido')
+        telefono = request.form.get('telefono')
+        correo = request.form.get('correo')
+        contrasena = request.form.get('contrasena')
 
+        if listaUsuarios.estaVacia():
+            # Si la lista está vacía, simplemente asignar los datos del nuevo usuario a la lista
+            usuario = Usuario(rol, nombre, apellido, telefono, correo, contrasena)
+            listaUsuarios.agregarUltimo(usuario)
+            mensaje = "Usuario agregado con éxito."
+        else:
+            # Si la lista no está vacía, verificar si el correo ya existe en la lista
+            if listaUsuarios.buscarPorCorreo(correo) is not None:
+                mensaje = "Ya existe un usuario con el correo ingresado."
+            else:
+                usuario = Usuario(rol, nombre, apellido, telefono, correo, contrasena)
+                listaUsuarios.agregarUltimo(usuario)
+                mensaje = "Usuario agregado con éxito."
+
+        return render_template('agregar_usuario_cliente.html', mensaje=mensaje)
+
+    return render_template('agregar_usuario_cliente.html')
 #CLIENTE
 
+#VER PELICULAS-GENERAL-POR CATEGORIA
+@app.route('/ver_')
+def ver_():
+    # ...
+    return render_template('ver_peliculas.html')
+
+@app.route('/ver_general', methods=['GET', 'POST'])
+def ver_peliculas():
+    return render_template('ver_general.html', categorias=listaCategorias)
+
+
+#lISTADO DE PELICULAS FAVORIAS-VER-AGREGAR
+
+#COMPRAR BOLETO
+
+#HISTORIAL BOLETO
 
 
 @app.route('/logout')
