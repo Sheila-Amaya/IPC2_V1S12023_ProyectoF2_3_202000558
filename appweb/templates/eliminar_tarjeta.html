@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Eliminar Tarjeta</title>
+</head>
+<body>
+    <h1>Eliminar Tarjeta</h1>
+    <form method="POST" action="/eliminar_tarjeta">
+        <label for="nombre">Nombre de usuario:</label>
+        <input type="text" name="nombre" id="nombre" required>
+        <br>
+        <label for="tarjeta">Número de Tarjeta:</label>
+        <input type="text" name="tarjeta" id="tarjeta" required>
+        <br>
+        <input type="submit" value="Eliminar Tarjeta">
+    </form>
+    {% if mensaje %}
+        <p>{{ mensaje }}</p>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Agregar Tarjeta</title>
+</head>
+<body>
+    <h1>Agregar Tarjeta</h1>
+    <form action="/agregar_tarjeta" method="POST">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required><br>
+        
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" name="apellido" required><br>
+        
+        <label for="tipo_tarjeta">Tipo de Tarjeta:</label>
+        <input type="text" id="tipo_tarjeta" name="tipo_tarjeta" required><br>
+        
+        <label for="numero_tarjeta">Número de Tarjeta:</label>
+        <input type="text" id="numero_tarjeta" name="numero_tarjeta" required><br>
+        
+        <label for="fecha_expiracion">Fecha de Expiración:</label>
+        <input type="text" id="fecha_expiracion" name="fecha_expiracion" required><br>
+        
+        <input type="submit" value="Agregar Tarjeta">
+    </form>
+</body>
+</html>

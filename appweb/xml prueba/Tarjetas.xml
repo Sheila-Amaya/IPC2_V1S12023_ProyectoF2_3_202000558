@@ -1,0 +1,14 @@
+<tarjetas>
+    <tarjeta>
+        <tipo>Debito</tipo>
+        <numero>1234567890123456</numero>
+        <titular>John Doe</titular>
+        <fecha_expiracion>12/2024</fecha_expiracion>
+    </tarjeta>
+    <tarjeta>
+        <tipo>Credito</tipo>
+        <numero>9876543210987654</numero>
+        <titular>Jane Smith</titular>
+        <fecha_expiracion>08/2023</fecha_expiracion>
+    </tarjeta>
+</tarjetas>
