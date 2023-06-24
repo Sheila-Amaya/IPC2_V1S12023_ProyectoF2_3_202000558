@@ -32,34 +32,13 @@ class EnlazadaSimple:
             temp = temp.siguiente
         temp.siguiente = None
         self.ultimo = temp
-        
-    def buscarPN(self, nombre):
-        #
-        temp = self.primero
-        while temp:
-            if temp.dato.nombre == nombre:
-                #print("El nombre {} ha sido encontrado.".format(nombre))
-                return temp.dato  # Devuelve el nodo si se encuentra el nombre
-            temp = temp.siguiente
-        #print("El nombre {} no ha sido encontrado.".format(nombre))
-        return None  # Devuelve None si no se encuentra el nombre
+
         
     def buscarPorCorreo(self, correo):
         #
         temp = self.primero
         while temp:
             if temp.dato.correo == correo:
-                #print("El correo {} ha sido encontrado.".format(correo))
-                return temp.dato  # Devuelve el nodo si se encuentra el correo
-            temp = temp.siguiente
-        #print("El correo {} no ha sido encontrado.".format(correo))
-        return None  # Devuelve None si no se encuentra el correo
-
-    def buscarUsuario(self, nombre):
-        #
-        temp = self.primero
-        while temp:
-            if temp.dato.nombre == nombre:
                 #print("El correo {} ha sido encontrado.".format(correo))
                 return temp.dato  # Devuelve el nodo si se encuentra el correo
             temp = temp.siguiente
@@ -326,4 +305,3 @@ class EnlazadaSimple:
         while current is not None:  # Itera mientras el nodo actual no sea None (hay elementos en la lista)
             yield current.dato  # Devuelve el dato del nodo actual
             current = current.siguiente  # Mueve al siguiente nodo de la lista
-

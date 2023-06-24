@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Modificar Cine</title>
+</head>
+<body>
+    <h1>Modificar Cine</h1>
+    <form method="POST" action="/modificar_cine">
+        <label>Nombre del cine actual:</label>
+        <input type="text" name="nombre_cine" required><br><br>
+
+        <label>Nuevo nombre del cine:</label>
+        <input type="text" name="nuevo_nombre_cine"><br><br>
+
+        <label>Número de sala:</label>
+        <input type="text" name="numero_sala" required><br><br>
+
+        <label>Nuevo número de sala:</label>
+        <input type="text" name="nuevo_numero_sala"><br><br>
+
+        <label>Nuevo número de asientos:</label>
+        <input type="text" name="nuevo_asientos_sala"><br><br>
+
+        <input type="submit" value="Modificar Cine y Sala">
+    </form>
+    
+    {% if mensaje %}
+    <p>{{ mensaje }}</p>
+    {% endif %}
+</body>
+</html>

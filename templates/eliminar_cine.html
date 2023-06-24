@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Eliminar Cine</title>
+</head>
+<body>
+    <h1>Eliminar Cine</h1>
+    {% if mensaje %}
+    <p>{{ mensaje }}</p>
+    {% endif %}
+    <form method="POST" action="/eliminar_cine">
+        <label for="nombre_cine">Nombre del Cine:</label>
+        <input type="text" id="nombre_cine" name="nombre_cine" required>
+        <br>
+        <input type="submit" value="Eliminar">
+    </form>
+</body>
+</html>

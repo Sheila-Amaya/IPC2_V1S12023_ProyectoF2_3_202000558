@@ -36,35 +36,6 @@ class ListaDobleEnlazada:
     def size(self):
         return self.size
     
-    def eliminarTarjeta(self, numero):
-        if self.estaVacia():
-            print("La lista está vacía")
-        else:
-            temp = self.primero
-            while temp is not None:
-                if temp.dato.numero == numero:
-                    if temp.anterior is None:  # Si el elemento a eliminar es el primero de la lista
-                        self.primero = temp.siguiente
-                        if self.primero is not None:
-                            self.primero.anterior = None
-                        else:
-                            self.ultimo = None
-                    else:  # El elemento a eliminar está en el medio o al final de la lista
-                        temp.anterior.siguiente = temp.siguiente
-                        if temp.siguiente is not None:
-                            temp.siguiente.anterior = temp.anterior
-                        else:
-                            self.ultimo = temp.anterior
-
-                    # Actualizar el atributo 'tarjeta' del objeto 'Usuario'
-                    temp.dato.tarjeta = None
-
-                    self.size -= 1
-                    print("\n\tTarjeta eliminada\n")
-                    return
-                temp = temp.siguiente
-            print("\n\tNo se encontró la tarjeta en la lista\n")
-
     def eliminar(self):
         if self.estaVacia():
             print("La lista está vacía")
@@ -76,23 +47,6 @@ class ListaDobleEnlazada:
             self.primero.anterior = None
             self.size -= 1
             
-            
-    def buscarT(self, dato):
-        temp = self.primero
-        while temp:
-            if temp.dato.numero == dato:
-                return temp.dato  # Devuelve el nodo si se encuentra el dato
-            temp = temp.siguiente
-        return None  # Devuelve None si no se encuentra 
-
-    def buscar(self, dato):
-        temp = self.primero
-        while temp:
-            if temp.dato.titular == dato:
-                return temp.dato  # Devuelve el nodo si se encuentra el dato
-            temp = temp.siguiente
-        return None  # Devuelve None si no se encuentra el correo
-    
 
     def eliminarPorCine(self, nombre):
         if self.estaVacia():
@@ -180,4 +134,3 @@ class ListaDobleEnlazada:
         while nodo_actual is not None:  # Mientras haya nodos en la lista
             yield nodo_actual.dato  # Devolver el dato del nodo actual
             nodo_actual = nodo_actual.siguiente  # Avanzar al siguiente nodo
-            

@@ -13,13 +13,12 @@ listaCategorias = EnlazadaSimple()
 listaPeliculas =    CicularDobleEnlazada()
 listaCine = ListaDobleEnlazada()
 listaSala = EnlazadaSimple()
-listaTarjetas = ListaDobleEnlazada()
 
 def crear_usuario_por_defecto(): #usuario administrador
     # Crear un usuario por defecto
     rol = "administrador"
     nombre = "admi"
-    apellido = "admi"
+    apellido = "administrador por defecto"
     telefono = "3834657892"
     correo = "admi@gmail.com"
     contrasena = "123"
@@ -58,7 +57,6 @@ def login():
 def ventana_cliente():
     # Lógica y renderizado de la página del panel de cliente
     return render_template('cliente.html')
-
 
 @app.route('/ventana_administrador')
 def ventana_administrador():
@@ -179,6 +177,7 @@ def modificar_usuario():
 #GESTION CATEGORIAS Y PELICULAS
 @app.route('/gestionar_categorias')
 def gestion_categoria():
+    # Lógica y renderizado de la página del panel de categorias
     return render_template('gestionC.html')
 
 #CARGAR XML CATEGORIAS Y PELICULAS
@@ -329,7 +328,7 @@ def eliminar_categoria():
 #GESTIONAR SALAS Y CINE
 @app.route('/gestionar_salas')
 def gestion_salas():
-    # ...
+    # Lógica y renderizado de la página del panel de categorias
     return render_template('gestionS.html')
 
 @app.route('/upload3', methods=['GET', 'POST'])
@@ -462,168 +461,10 @@ def eliminar_cine():
 
     return render_template('eliminar_cine.html')
 
-#GESTION TARJETAS
-@app.route('/gestionar_tarjeta')
-def gestion_tarjeta():
-    # ...
-    return render_template('gestionT.html')
-
-@app.route('/upload4', methods=['GET', 'POST'])
-def xml_tarjeta():
-    global listaTarjetas
-
-    if request.method == 'POST':
-        if 'xml_file' not in request.files:
-            return "Error: No se ha seleccionado ningún archivo"
-
-        xml_file = request.files['xml_file']
-
-        if xml_file.filename == '':
-            return "Error: No se ha seleccionado ningún archivo"
-
-        if xml_file and xml_file.filename.endswith('.xml'):
-            # Crear una instancia de la clase Lectura
-            lectura = Lectura()
-            # Llamar al método lecturaT() para procesar el XML
-            datosArchivo = lectura.lecturaT(xml_file)
-
-            if listaTarjetas.estaVacia():
-                # Si la lista está vacía, simplemente asignar los datos del archivo a la lista
-                listaTarjetas = datosArchivo
-            else:
-                # Si la lista no está vacía, agregar los datos del archivo al final de la lista existente
-                listaTarjetas.agregarUltimo(datosArchivo)
-
-            return "Archivo XML cargado y procesado con éxito"
-        else:
-            return "Error: El archivo debe tener extensión .xml"
-
-    # Si la solicitud es GET, simplemente muestra el formulario
-    return '''
-    <form method="POST" enctype="multipart/form-data">
-        <input type="file" name="xml_file">
-        <input type="submit" value="Cargar">
-    </form>
-    '''
-
-@app.route('/mostrar_t')
-def mostrar_t():
-    # Obtener la lista de usuarios y tarjetas
-    global listaUsuarios
-    global listaTarjetas
-
-    if listaTarjetas is not None:
-        # Asignar las tarjetas a los usuarios correspondientes
-        for tarjeta in listaTarjetas:
-            #print("Número de tarjeta:", tarjeta.numero)
-            for usuario in listaUsuarios:
-                nombre_completo = usuario.nombre + " " + usuario.apellido
-                if nombre_completo == tarjeta.titular:
-                    usuario.tarjeta = tarjeta
-
-    return render_template('tarjetas.html', usuarios=listaUsuarios)
-
-@app.route('/agregar_tarjeta', methods=['GET', 'POST'])
-def agregar_tarjeta():
-    if request.method == 'POST':
-        nombre = request.form['nombre']
-        apellido = request.form['apellido']
-        tipo_tarjeta = request.form['tipo_tarjeta']
-        numero_tarjeta = request.form['numero_tarjeta']
-        fecha_expiracion = request.form['fecha_expiracion']
-        
-        # Buscar el usuario en la listaUsuarios
-        usuario = None
-        for u in listaUsuarios:
-            if u.nombre == nombre and u.apellido == apellido:
-                usuario = u
-                break
-        
-        if usuario is not None:
-            # Crear una instancia de Tarjeta con los datos ingresados
-            tarjeta = Tarjeta(tipo_tarjeta, numero_tarjeta, f"{nombre} {apellido}", fecha_expiracion)
-            
-            # Asignar la tarjeta al usuario
-            usuario.tarjeta = tarjeta
-            
-            return "Tarjeta agregada correctamente."
-        else:
-            return "No se encontró el usuario."
-    
-    return render_template('agregar_tarjeta.html')
-
-@app.route('/modificar_tarjeta', methods=['GET', 'POST'])
-def modificar_tarjeta():
-    if request.method == 'POST':
-        nombre = request.form['nombre']
-        apellido = request.form['apellido']
-        tipo = request.form['tipo']
-        numero_tarjeta = request.form['numero_tarjeta']
-        titular = request.form['titular']
-        fecha_expiracion = request.form['fecha_expiracion']
-        
-        # Buscar el usuario en la listaUsuarios
-        usuario = None
-        for u in listaUsuarios:
-            if u.nombre == nombre and u.apellido == apellido:
-                usuario = u
-                break
-        
-        if usuario is not None:
-            # Verificar si el usuario tiene una tarjeta asignada
-            if usuario.tarjeta is not None:
-                # Actualizar los datos de la tarjeta
-                usuario.tarjeta.tipo = tipo
-                usuario.tarjeta.numero = numero_tarjeta
-                usuario.tarjeta.titular = titular
-                usuario.tarjeta.fecha_expiracion = fecha_expiracion
-            else:
-                # Si el usuario no tiene una tarjeta asignada, crear una nueva tarjeta con los datos proporcionados
-                tarjeta = Tarjeta(numero_tarjeta, titular, fecha_expiracion)
-                usuario.tarjeta = tarjeta
-            
-            return "Tarjeta modificada exitosamente."
-        else:
-            return "No se encontró el usuario."
-    
-    return render_template('modificar_tarjeta.html')
-
-@app.route('/eliminar_tarjeta', methods=['GET', 'POST'])
-def eliminar_tarjeta():
-    if request.method == 'POST':
-        nombre = request.form['nombre']
-        numero_tarjeta = request.form['tarjeta']
-        
-        # Buscar al usuario correspondiente
-        usuario = listaUsuarios.buscarUsuario(nombre)
-
-        if usuario is not None:
-            # Verificar si el usuario tiene tarjetas asignadas
-            if usuario.tarjeta is None:
-                mensaje = "El usuario no tiene tarjetas asignadas."
-            else:
-                # Buscar la tarjeta en la lista de tarjetas del usuario
-                tarjeta_encontrada = listaTarjetas.buscarT(numero_tarjeta)
-                if tarjeta_encontrada is not None:
-                    # Eliminar la tarjeta del usuario
-                    listaTarjetas.eliminarTarjeta(numero_tarjeta)
-                    usuario.tarjeta = None
-                    mensaje = "Tarjeta eliminada exitosamente."
-                else:
-                    mensaje = "No se encontró la tarjeta en la lista de tarjetas."
-        else:
-            mensaje = "No se encontró al usuario."
-
-        return render_template('eliminar_tarjeta.html', mensaje=mensaje)
-
-    return render_template('eliminar_tarjeta.html')
-
 #GESTION BOLETOS
 
 
 #CLIENTE
-
-
 
 @app.route('/logout')
 def logout():

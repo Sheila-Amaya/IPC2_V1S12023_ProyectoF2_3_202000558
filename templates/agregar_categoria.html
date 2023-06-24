@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Agregar Categoría</title>
+</head>
+<body>
+    <h1>Agregar Categoría</h1>
+    {% if mensaje %}
+        <p>{{ mensaje }}</p>
+    {% endif %}
+    <form method="POST" action="/agregar_categoria">
+        <label for="nombre_categoria">Nombre de la categoría:</label>
+        <input type="text" id="nombre_categoria" name="nombre_categoria" required>
+        <br>
+        <label for="agregar_pelicula">¿Desea agregar una película?</label>
+        <select id="agregar_pelicula" name="agregar_pelicula">
+            <option value="si">Sí</option>
+            <option value="no">No</option>
+        </select>
+        <br>
+        <div id="pelicula_fields">
+            <label for="titulo">Título:</label>
+            <input type="text" id="titulo" name="titulo">
+            <br>
+            <label for="director">Director:</label>
+            <input type="text" id="director" name="director">
+            <br>
+            <label for="anio">Año:</label>
+            <input type="text" id="anio" name="anio">
+            <br>
+            <label for="fecha">Fecha:</label>
+            <input type="text" id="fecha" name="fecha">
+            <br>
+            <label for="hora">Hora:</label>
+            <input type="text" id="hora" name="hora">
+            <br>
+            <label for="imagen">Imagen:</label>
+            <input type="text" id="imagen" name="imagen">
+            <br>
+            <label for="precio">Precio:</label>
+            <input type="text" id="precio" name="precio">
+        </div>
+        <br>
+        <input type="submit" value="Agregar">
+    </form>
+</body>
+</html>
