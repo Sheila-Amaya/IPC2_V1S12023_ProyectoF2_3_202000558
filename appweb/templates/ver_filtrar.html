@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Ver y filtrar películas</title>
+</head>
+
+<body>
+    <h1>Ver y filtrar películas</h1>
+
+    <form method="POST" action="/ver_filtrar">
+        <label for="nombre_categoria">Categoría:</label>
+        <input type="text" name="nombre_categoria" id="nombre_categoria">
+        <input type="submit" value="Buscar">
+    </form>
+
+    {% if categoria_actual %}
+    <h2>Películas de la categoría: {{ categoria_actual.nombre }}</h2>
+    {% if categoria_actual.pelicula %}
+    <ul>
+        {% for pelicula in categoria_actual.pelicula %}
+        <li>{{ pelicula.titulo }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No se encontraron películas para la categoría seleccionada.</p>
+    {% endif %}
+    {% else %}
+    {% if mensaje %}
+    <p>{{ mensaje }}</p>
+    {% endif %}
+    {% endif %}
+</body>
+
+</html>

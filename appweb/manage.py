@@ -620,6 +620,7 @@ def eliminar_tarjeta():
 
 #GESTION BOLETOS ADMINISTRADOR
 
+
 #REGISTRAR USUARIO CLIENTE
 @app.route('/agregar_usuario_cliente', methods=['GET', 'POST'])
 def agregar_cliente():
@@ -648,9 +649,10 @@ def agregar_cliente():
         return render_template('agregar_usuario_cliente.html', mensaje=mensaje)
 
     return render_template('agregar_usuario_cliente.html')
+
 #CLIENTE
 
-#VER PELICULAS-GENERAL-POR CATEGORIA
+#VER PELICULAS-GENERAL-POR CATEGORIA-DETALLES 
 @app.route('/ver_')
 def ver_():
     # ...
@@ -660,6 +662,41 @@ def ver_():
 def ver_peliculas():
     return render_template('ver_general.html', categorias=listaCategorias)
 
+
+@app.route('/ver_filtrar', methods=['GET', 'POST'])
+def ver_filtrar():
+    mensaje = None
+
+    if request.method == 'POST':
+        categoria = request.form.get('nombre_categoria')
+
+        if categoria:
+            categoria_actual = listaCategorias.buscarUnaCategoria(categoria)
+            if categoria_actual is not None:
+                return render_template('ver_filtrar.html', categoria_actual=categoria_actual)
+            else:
+                mensaje = "No se encontró la categoría en la lista."
+        else:
+            mensaje = "Debe ingresar la categoría."
+    
+    return render_template('ver_filtrar.html', mensaje=mensaje)
+
+
+@app.route('/ver_detalles_pelicula', methods=['GET', 'POST'])
+def ver_detalles_pelicula():
+    if request.method == 'POST':
+        categoria = request.form.get('categoria')
+        titulo = request.form.get('titulo')
+        
+        # Buscar la categoría por nombre
+        categoria_actual = listaCategorias.buscarPorCategoria(categoria)
+        if categoria_actual:
+            # Buscar la película por nombre en la categoría encontrada
+            pelicula = categoria_actual.pelicula.buscarPeliculaPorNombre(titulo)
+            if pelicula:
+                return render_template('ver_detalles_pelicula.html', pelicula=pelicula)
+    
+    return render_template('ver_detalles_pelicula.html')
 
 #lISTADO DE PELICULAS FAVORIAS-VER-AGREGAR
 

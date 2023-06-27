@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Detalles de la Película</title>
+</head>
+
+<body>
+    <h1>Detalles de la Película</h1>
+
+    <form action="/ver_detalles_pelicula" method="POST">
+        <label for="categoria">Categoría:</label>
+        <input type="text" id="categoria" name="categoria" required>
+
+        <label for="titulo">Título de la película:</label>
+        <input type="text" id="titulo" name="titulo" required>
+
+        <button type="submit">Buscar</button>
+    </form>
+
+    {% if pelicula %}
+    <div>
+        <h2>{{ pelicula.titulo }}</h2>
+        <p>Director: {{ pelicula.director }}</p>
+        <p>Año: {{ pelicula.anio }}</p>
+        <p>Fecha de función: {{ pelicula.fecha }}</p>
+        <p>Hora de función: {{ pelicula.hora }}</p>
+        <p>Precio: {{ pelicula.precio }}</p>
+        <img src="{{ pelicula.imagen }}" alt="Imagen de la película">
+    </div>
+    {% elif pelicula == None %}
+    <p>No se encontró la película.</p>
+    {% endif %}
+
+    <a href="/">Volver al inicio</a>
+</body>
+
+</html>

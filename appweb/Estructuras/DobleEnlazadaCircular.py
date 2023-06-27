@@ -131,29 +131,26 @@ class CicularDobleEnlazada:
         while pelicula_actual:
             print("\t\tTítulo:", pelicula_actual.dato.titulo)
             pelicula_actual = pelicula_actual.siguiente
-            return pelicula_actual.dato
             if pelicula_actual == self.primero:
                 break
+        return pelicula_actual.dato.titulo
             
     def buscarPeliculaPorNombre(self, nombre):
         if self.estaVacia():
             print("\tNo hay películas en la lista.")
-            return
+            return None
 
         pelicula_actual = self.primero
         while True:
             if pelicula_actual.dato.titulo.lower() == nombre.lower():
-                print("\n\tPelícula encontrada:\n")
-                print("\t\tTítulo:", pelicula_actual.dato.titulo)
-                print("\t\tFecha función:", pelicula_actual.dato.fecha)
-                print("\t\tHora de la funcion:", pelicula_actual.dato.hora)
                 return pelicula_actual.dato
-                
+
             pelicula_actual = pelicula_actual.siguiente
             if pelicula_actual == self.primero:
                 break
 
         print("\tLa película no se encontró en la lista.")
+        return None
         
     def buscarPeliculaParaBoleto(self, nombre):
         if self.estaVacia():

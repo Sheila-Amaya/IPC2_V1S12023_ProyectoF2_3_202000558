@@ -258,18 +258,17 @@ class EnlazadaSimple:
         
         print("\tNo se encontró ninguna información correspondiente a la categoria {} en el sistema.".format(categoria))
         
+            
     def buscarUnaCategoria(self, categoria):
         if self.estaVacia():
             print("La lista está vacía")
         else:
             temp = self.primero
             while temp is not None:
-                if temp.dato.nombre == categoria:  # se busca el elemento a través de su atributo
-                    # Mostrar los datos actuales 
-                    print("\n\tNombre categoria: " + temp.dato.nombre)
-                    print("\tPeliculas:")
-                    temp.dato.pelicula.verSoloPeliculas()  
+                if temp.dato.nombre == categoria:
+                    return temp.dato  # Devuelve el objeto Categoria encontrado
                 temp = temp.siguiente
+        return None  # Retorna None si la categoría no se encuentra en la lista
                 
     def buscarPorSala(self, sala):
         temp = self.primero
