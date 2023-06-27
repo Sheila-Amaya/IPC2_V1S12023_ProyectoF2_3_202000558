@@ -4,6 +4,8 @@ from Estructuras.EnlazadaSimple import *
 from usuario import *
 from Estructuras.DobleEnlazadaCircular import *
 from Estructuras.DobleEnlazada import *
+from favorito import *
+from boleto import *
 
 app = Flask(__name__)
 
@@ -14,6 +16,10 @@ listaPeliculas =    CicularDobleEnlazada()
 listaCine = ListaDobleEnlazada()
 listaSala = EnlazadaSimple()
 listaTarjetas = ListaDobleEnlazada()
+listaFavoritos = []
+listaAsientos = []
+listaHistorial = []
+boletos = 0
 
 def crear_usuario_por_defecto(): #usuario administrador
     # Crear un usuario por defecto
@@ -30,7 +36,7 @@ def crear_usuario_por_defecto(): #usuario administrador
 
 @app.route('/') #PANTALLA INICIO
 def home():
-    return render_template('home.html')
+    return render_template('home.html', categorias=listaCategorias)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -681,7 +687,6 @@ def ver_filtrar():
     
     return render_template('ver_filtrar.html', mensaje=mensaje)
 
-
 @app.route('/ver_detalles_pelicula', methods=['GET', 'POST'])
 def ver_detalles_pelicula():
     if request.method == 'POST':
@@ -699,8 +704,52 @@ def ver_detalles_pelicula():
     return render_template('ver_detalles_pelicula.html')
 
 #lISTADO DE PELICULAS FAVORIAS-VER-AGREGAR
+@app.route('/favoritas')
+def favoritas():
+    # ...
+    return render_template('fav.html')
+
+@app.route('/agregar_favoritas', methods=['GET', 'POST'])
+def agregar_favoritas():
+    if request.method == 'POST':
+        categoria = request.form.get('categoria')
+        nombre_pelicula = request.form.get('nombre_pelicula')
+        
+        # Buscar la categoría en la lista enlazada de categorías
+        categoria_actual = listaCategorias.buscarPorCategoria(categoria)
+        if categoria_actual:
+            # Buscar la película en la categoría
+            pelicula = categoria_actual.pelicula.buscarPeli(nombre_pelicula)
+            
+            if pelicula:
+                # Crear el objeto Favorito con el título e imagen de la película
+                favorito = Favorito(pelicula.titulo, pelicula.imagen)
+                
+                # Agregar el objeto Favorito a la lista de favoritos
+                listaFavoritos.append(favorito)
+                
+                mensaje = "La película se ha agregado a la lista de favoritos."
+            else:
+                mensaje = "La película no se encontró en la categoría seleccionada."
+        else:
+            mensaje = "La categoría no se encontró en la lista."
+            
+        return render_template('agregar_favoritas.html', mensaje=mensaje)
+
+    return render_template('agregar_favoritas.html')
+
+#mostrar la lista favoritos
+@app.route('/lista_favoritas')
+def lista_favoritas():
+    return render_template('lista_favoritas.html', favoritos=listaFavoritos)
 
 #COMPRAR BOLETO
+@app.route('/comprar_boletos', methods=['GET', 'POST'])
+def comprar_boletos():
+        return render_template('comprar_boletos.html')
+
+
+
 
 #HISTORIAL BOLETO
 

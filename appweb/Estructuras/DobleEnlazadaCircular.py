@@ -133,7 +133,17 @@ class CicularDobleEnlazada:
             pelicula_actual = pelicula_actual.siguiente
             if pelicula_actual == self.primero:
                 break
-        return pelicula_actual.dato.titulo
+        return pelicula_actual.dato.titulo 
+    
+    def fav(self):
+        pelicula_actual = self.primero
+        peliculas = []
+        while pelicula_actual:
+            peliculas.append((pelicula_actual.dato.titulo, pelicula_actual.dato.imagen))
+            pelicula_actual = pelicula_actual.siguiente
+            if pelicula_actual == self.primero:
+                break
+        return peliculas
             
     def buscarPeliculaPorNombre(self, nombre):
         if self.estaVacia():

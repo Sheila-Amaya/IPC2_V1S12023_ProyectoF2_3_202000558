@@ -1,22 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/styles.css" rel="stylesheet">
-    <title>Administrador</title>
+    <title>Agregar a favoritas</title>
 </head>
 
 <body>
-    <h1>ADMINISTRADOR</h1>
-    <a href="/gestionar_usuarios">gestionar usuarios</a>
-    <a href="/gestionar_categorias">gestionar categorias y peliculas</a>
-    <a href="/gestionar_salas">gestionar Salas</a>
-    <a href="/gestionar_tarjeta">Gestionar tarjetas de Débito/Crédito</a>
-    <a href="">gestionar boletos comprados</a>
-    <a href="/logout">Cerrar sesión</a>
+    <h1>Agregar película a favoritas</h1>
+
+    <form method="POST" action="/agregar_favoritas">
+        <label for="categoria">Categoría:</label>
+        <input type="text" id="categoria" name="categoria"><br>
+
+        <label for="nombre_pelicula">Nombre de la película:</label>
+        <input type="text" id="nombre_pelicula" name="nombre_pelicula"><br>
+
+        <button type="submit">Agregar a favoritas</button>
+    </form>
+
+    {% if mensaje %}
+    <p>{{ mensaje }}</p>
+    {% endif %}
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

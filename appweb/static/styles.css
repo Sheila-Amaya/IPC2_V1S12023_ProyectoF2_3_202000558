@@ -1,0 +1,18 @@
+.carousel-image {
+    max-height: 560px; /* Ajusta el tamaño de altura deseado */
+    object-fit: contain; /* Controla cómo se ajusta la imagen dentro del contenedor */
+}
+
+.custom-navbar .navbar-brand {
+    font-size: 54px; /* Tamaño de fuente */
+    font-weight: bold; /* Grosor de fuente */
+    color: #fff; /* Color del texto */ /* Color del texto del navbar */
+}
+
+.custom-navbar .nav-link {
+    color: #fff; /* Color del texto de los enlaces del navbar */
+}
+
+.navbar.custom-navbar {
+    background-color: #457b9d;
+}

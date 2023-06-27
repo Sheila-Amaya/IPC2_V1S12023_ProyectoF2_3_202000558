@@ -8,7 +8,7 @@
                 <anio>2019</anio>
                 <fecha>2023-06-05</fecha>
                 <hora>18:30</hora>
-                <imagen>https://usaccinema.com/image1.png</imagen>
+                <imagen>https://lumiere-a.akamaihd.net/v1/images/p_avengersendgame_19751_e14a0104.jpeg</imagen>
                 <precio>42</precio>
             </pelicula>
             <pelicula>
@@ -17,7 +17,7 @@
                 <anio>2014</anio>
                 <fecha>2023-06-06</fecha>
                 <hora>20:00</hora>
-                <imagen>https://usaccinema.com/image2.png</imagen>
+                <imagen>https://m.media-amazon.com/images/M/MV5BMTU2NjA1ODgzMF5BMl5BanBnXkFtZTgwMTM2MTI4MjE@._V1_.jpg</imagen>
                 <precio>45</precio>
             </pelicula>
             <pelicula>
@@ -26,7 +26,7 @@
                 <anio>2018</anio>
                 <fecha>2023-06-07</fecha>
                 <hora>19:15</hora>
-                <imagen>https://usaccinema.com/image2.png</imagen>
+                <imagen>https://mismomentosenlaspeliculas.files.wordpress.com/2020/03/fallout.jpg</imagen>
                 <precio>55</precio>
             </pelicula>
         </peliculas>
@@ -49,6 +49,7 @@
                 <anio>2007</anio>
                 <fecha>2023-06-06</fecha>
                 <hora>21:00</hora>
+                <imagen>https://i.ebayimg.com/images/g/EHEAAOSwCwJhj8Mk/s-l1200.jpg</imagen>
             </pelicula>
             <pelicula>
                 <titulo>Bridesmaids</titulo>
@@ -56,16 +57,7 @@
                 <anio>2011</anio>
                 <fecha>2023-06-07</fecha>
                 <hora>20:15</hora>
-                <imagen>https://usaccinema.com/image3.png</imagen>
-                <precio>42</precio>
-            </pelicula>
-                <pelicula>
-                <titulo>B</titulo>
-                <director>Paul Feig</director>
-                <anio>2011</anio>
-                <fecha>2023-06-07</fecha>
-                <hora>20:15</hora>
-                <imagen>https://usaccinema.com/image3.png</imagen>
+                <imagen>https://m.media-amazon.com/images/M/MV5BMjAyOTMyMzUxNl5BMl5BanBnXkFtZTcwODI4MzE0NA@@._V1_.jpg</imagen>
                 <precio>42</precio>
             </pelicula>
         </peliculas>
