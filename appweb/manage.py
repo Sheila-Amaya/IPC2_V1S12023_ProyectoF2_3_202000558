@@ -78,15 +78,11 @@ def ventana_administrador():
     return render_template('administrador.html')
 
 # GESTION USUARIOS
-
-
 @app.route('/gestionar_usuarios')
 def gestion_usuario():
     return render_template('gestionU.html')
 
 # CARGAR XML DE USUARIO
-
-
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_xml():
     global listaUsuarios
@@ -145,7 +141,7 @@ def agregar_usuario():
         if listaUsuarios.estaVacia():
             # Si la lista está vacía, simplemente asignar los datos del nuevo usuario a la lista
             usuario = Usuario(rol, nombre, apellido,
-                              telefono, correo, contrasena)
+                            telefono, correo, contrasena)
             listaUsuarios.agregarUltimo(usuario)
             mensaje = "Usuario agregado con éxito."
         else:
@@ -154,7 +150,7 @@ def agregar_usuario():
                 mensaje = "Ya existe un usuario con el correo ingresado."
             else:
                 usuario = Usuario(rol, nombre, apellido,
-                                  telefono, correo, contrasena)
+                                telefono, correo, contrasena)
                 listaUsuarios.agregarUltimo(usuario)
                 mensaje = "Usuario agregado con éxito."
 
@@ -199,15 +195,11 @@ def modificar_usuario():
     return render_template('modificar_usuario.html')
 
 # GESTION CATEGORIAS Y PELICULAS
-
-
 @app.route('/gestionar_categorias')
 def gestion_categoria():
     return render_template('gestionC.html')
 
 # CARGAR XML CATEGORIAS Y PELICULAS
-
-
 @app.route('/upload2', methods=['GET', 'POST'])
 def xml_categoria():
     global listaCategorias
@@ -359,8 +351,6 @@ def eliminar_categoria():
     return render_template('eliminar_categoria.html')
 
 # GESTIONAR SALAS Y CINE
-
-
 @app.route('/gestionar_salas')
 def gestion_salas():
     # ...
@@ -502,8 +492,6 @@ def eliminar_cine():
     return render_template('eliminar_cine.html')
 
 # GESTION TARJETAS
-
-
 @app.route('/gestionar_tarjeta')
 def gestion_tarjeta():
     # ...
@@ -586,7 +574,7 @@ def agregar_tarjeta():
         if usuario is not None:
             # Crear una instancia de Tarjeta con los datos ingresados
             tarjeta = Tarjeta(tipo_tarjeta, numero_tarjeta,
-                              f"{nombre} {apellido}", fecha_expiracion)
+                            f"{nombre} {apellido}", fecha_expiracion)
 
             # Asignar la tarjeta al usuario
             usuario.tarjeta = tarjeta
@@ -702,8 +690,6 @@ def agregar_cliente():
 # CLIENTE
 
 # VER PELICULAS-GENERAL-POR CATEGORIA-DETALLES
-
-
 @app.route('/ver_')
 def ver_():
     # ...
@@ -752,8 +738,6 @@ def ver_detalles_pelicula():
     return render_template('ver_detalles_pelicula.html')
 
 # lISTADO DE PELICULAS FAVORIAS-VER-AGREGAR
-
-
 @app.route('/favoritas')
 def favoritas():
     # ...
@@ -790,11 +774,10 @@ def agregar_favoritas():
     return render_template('agregar_favoritas.html')
 
 # mostrar la lista favoritos
-
-
 @app.route('/lista_favoritas')
 def lista_favoritas():
     return render_template('lista_favoritas.html', favoritos=listaFavoritos)
+
 
 # COMPRAR BOLETO
 
@@ -805,6 +788,7 @@ def comprar_boletos():
 
 
 # HISTORIAL BOLETO
+
 
 # API
 @app.route('/getUsuarios', methods=['GET'])
