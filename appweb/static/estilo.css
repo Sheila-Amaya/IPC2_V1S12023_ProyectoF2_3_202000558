@@ -1,10 +1,4 @@
 
-/*home*/
-.carousel-image {
-    max-height: 560px; /* Ajusta el tamaño de altura deseado */
-    object-fit: contain; /* Controla cómo se ajusta la imagen dentro del contenedor */
-}
-
 .custom-navbar .navbar-brand {
     font-size: 54px; /* Tamaño de fuente */
     font-weight: bold; /* Grosor de fuente */
@@ -95,53 +89,7 @@ body {
     transition: background-color 0.3s ease;
 }
 
-.dropdown-menu.show {
-    background-color: transparent;
-    border: none;
-    box-shadow: none;
+/*agregar a favorito*/
+.row {
+    margin-top: -220px;
 }
-
-
-/* ver peliculas general menu cliente */
-.card-custom {
-    background-color: #f2f2f2;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 20px;
-    margin: 8px;
-}
-
-.card-custom .card-title {
-    font-size: 20px;
-    color: #333;
-}
-
-.card-custom .card-text {
-    font-size: 16px;
-    color: #666;
-}
-
-/**/
-.custom-card {
-    padding: 10px;
-    margin-bottom: 20px;
-}
-
-.custom-card .card-img-top {
-    max-height: 250px;
-    object-fit: cover;
-}
-
-.custom-card .card-body {
-    padding: 10px;
-}
-
-.custom-card .card-title {
-    font-size: 18px;
-    margin-bottom: 5px;
-}
-
-.custom-card .card-text {
-    font-size: 14px;
-}
-

@@ -218,7 +218,7 @@ class Lectura:
 
         except Exception as e:
             print('Error al cargar el archivo')
-            
+
     
     def lecturaT(self,dato):
         try:

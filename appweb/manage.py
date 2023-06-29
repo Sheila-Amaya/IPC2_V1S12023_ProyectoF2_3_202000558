@@ -30,7 +30,7 @@ def crear_usuario_por_defecto():  # usuario administrador
     nombre = "admi"
     apellido = "admi"
     telefono = "3834657892"
-    correo = "admi@gmail.com"
+    correo = "admi@mail.com"
     contrasena = "123"
     usuario = Usuario(rol, nombre, apellido, telefono, correo, contrasena)
 
@@ -670,7 +670,7 @@ def agregar_cliente():
         if listaUsuarios.estaVacia():
             # Si la lista está vacía, simplemente asignar los datos del nuevo usuario a la lista
             usuario = Usuario(rol, nombre, apellido,
-                              telefono, correo, contrasena)
+                            telefono, correo, contrasena)
             listaUsuarios.agregarUltimo(usuario)
             mensaje = "Usuario agregado con éxito."
         else:
@@ -679,7 +679,7 @@ def agregar_cliente():
                 mensaje = "Ya existe un usuario con el correo ingresado."
             else:
                 usuario = Usuario(rol, nombre, apellido,
-                                  telefono, correo, contrasena)
+                                telefono, correo, contrasena)
                 listaUsuarios.agregarUltimo(usuario)
                 mensaje = "Usuario agregado con éxito."
 
@@ -690,12 +690,6 @@ def agregar_cliente():
 # CLIENTE
 
 # VER PELICULAS-GENERAL-POR CATEGORIA-DETALLES
-@app.route('/ver_')
-def ver_():
-    # ...
-    return render_template('ver_peliculas.html')
-
-
 @app.route('/ver_general', methods=['GET', 'POST'])
 def ver_peliculas():
     return render_template('ver_general.html', categorias=listaCategorias)
@@ -738,12 +732,6 @@ def ver_detalles_pelicula():
     return render_template('ver_detalles_pelicula.html')
 
 # lISTADO DE PELICULAS FAVORIAS-VER-AGREGAR
-@app.route('/favoritas')
-def favoritas():
-    # ...
-    return render_template('fav.html')
-
-
 @app.route('/agregar_favoritas', methods=['GET', 'POST'])
 def agregar_favoritas():
     if request.method == 'POST':
