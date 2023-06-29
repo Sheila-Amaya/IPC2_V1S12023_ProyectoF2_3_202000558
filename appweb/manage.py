@@ -88,12 +88,12 @@ def upload_xml():
     global listaUsuarios
     if request.method == 'POST':
         if 'xml_file' not in request.files:
-            return "Error: No se ha seleccionado ningún archivo"
+            return jsonify({'error': 'No se ha seleccionado ningún archivo'})
 
         xml_file = request.files['xml_file']
 
         if xml_file.filename == '':
-            return "Error: No se ha seleccionado ningún archivo"
+            return jsonify({'error': 'No se ha seleccionado ningún archivo'})
 
         if xml_file and xml_file.filename.endswith('.xml'):
             # Crear una instancia de la clase Lectura
@@ -109,17 +109,12 @@ def upload_xml():
                 ultimoNodo = listaUsuarios.ultimo
                 ultimoNodo.siguiente = datosArchivo.primero
                 listaUsuarios.ultimo = datosArchivo.ultimo
-            return "Archivo XML cargado y procesado con éxito"
+            return jsonify({'bien': 'Archivo XML cargado y procesado con exito'})
         else:
-            return "Error: El archivo debe tener extensión .xml"
+            return jsonify({'error': 'El archivo debe tener extensión .xml'})
 
     # Si la solicitud es GET, simplemente muestra el formulario
-    return '''
-    <form method="POST" enctype="multipart/form-data">
-        <input type="file" name="xml_file">
-        <input type="submit" value="Cargar">
-    </form>
-    '''
+    return render_template('gestionU.html')
 
 
 @app.route('/usuarios')
@@ -230,19 +225,11 @@ def xml_categoria():
                         listaCategorias.agregarUltimo(temp.dato)
                         temp = temp.siguiente
 
-                return "Archivo XML cargado y procesado con éxito"
+                return jsonify({'bien': 'Archivo XML cargado y procesado con exito'})
             else:
-                return "Error al procesar el archivo XML"
-        else:
-            return "Error: El archivo debe tener extensión .xml"
-
-    # Si la solicitud es GET, simplemente muestra el formulario
-    return '''
-    <form method="POST" enctype="multipart/form-data">
-        <input type="file" name="xml_file">
-        <input type="submit" value="Cargar">
-    </form>
-    '''
+                return jsonify({'error': 'El archivo debe tener extensión .xml'})
+        # Si la solicitud es GET, simplemente muestra el formulario
+        return render_template('gestionC.html')
 
 
 @app.route('/mostrar_cp')
@@ -379,19 +366,12 @@ def xml_sala():
 
             if resultado is not None:
                 listaCine, listaSala = resultado
-                return "Archivo XML cargado y procesado con éxito"
+                return jsonify({'bien': 'Archivo XML cargado y procesado con exito'})
             else:
-                return "Error al procesar el archivo XML"
-        else:
-            return "Error: El archivo debe tener extensión .xml"
+                return jsonify({'error': 'El archivo debe tener extensión .xml'})
 
-    # Si la solicitud es GET, simplemente muestra el formulario
-    return '''
-    <form method="POST" enctype="multipart/form-data">
-        <input type="file" name="xml_file">
-        <input type="submit" value="Cargar">
-    </form>
-    '''
+        # Si la solicitud es GET, simplemente muestra el formulario
+        return render_template('gestionU.html')
 
 
 @app.route('/mostrar_s')
@@ -499,17 +479,16 @@ def gestion_tarjeta():
 
 
 @app.route('/upload4', methods=['GET', 'POST'])
-def xml_tarjeta():
+def upload_tarjetas():
     global listaTarjetas
-
     if request.method == 'POST':
         if 'xml_file' not in request.files:
-            return "Error: No se ha seleccionado ningún archivo"
+            return jsonify({'error': 'No se ha seleccionado ningún archivo'})
 
         xml_file = request.files['xml_file']
 
         if xml_file.filename == '':
-            return "Error: No se ha seleccionado ningún archivo"
+            return jsonify({'error': 'No se ha seleccionado ningún archivo'})
 
         if xml_file and xml_file.filename.endswith('.xml'):
             # Crear una instancia de la clase Lectura
@@ -524,17 +503,12 @@ def xml_tarjeta():
                 # Si la lista no está vacía, agregar los datos del archivo al final de la lista existente
                 listaTarjetas.agregarUltimo(datosArchivo)
 
-            return "Archivo XML cargado y procesado con éxito"
+            return jsonify({'bien': 'Archivo XML cargado y procesado con éxito'})
         else:
-            return "Error: El archivo debe tener extensión .xml"
+            return jsonify({'error': 'El archivo debe tener extensión .xml'})
 
     # Si la solicitud es GET, simplemente muestra el formulario
-    return '''
-    <form method="POST" enctype="multipart/form-data">
-        <input type="file" name="xml_file">
-        <input type="submit" value="Cargar">
-    </form>
-    '''
+    return render_template('gestionT.html')
 
 
 @app.route('/mostrar_t')
