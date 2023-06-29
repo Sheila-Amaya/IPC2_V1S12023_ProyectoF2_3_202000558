@@ -11,29 +11,61 @@
 </head>
 
 <body>
-    <h1>Modificar Cine</h1>
-    <form method="POST" action="/modificar_cine">
-        <label>Nombre del cine actual:</label>
-        <input type="text" name="nombre_cine" required><br><br>
-
-        <label>Nuevo nombre del cine:</label>
-        <input type="text" name="nuevo_nombre_cine"><br><br>
-
-        <label>Número de sala:</label>
-        <input type="text" name="numero_sala" required><br><br>
-
-        <label>Nuevo número de sala:</label>
-        <input type="text" name="nuevo_numero_sala"><br><br>
-
-        <label>Nuevo número de asientos:</label>
-        <input type="text" name="nuevo_asientos_sala"><br><br>
-
-        <input type="submit" value="Modificar Cine y Sala">
-    </form>
-
+    <nav class="navbar navbar-expand-lg navbar-light custom-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#">Cinema USAC</a>
+            <a class="nav-link" href="/login">Regresar</a>
+        </div>
+    </nav>
     {% if mensaje %}
     <p>{{ mensaje }}</p>
     {% endif %}
+
+    <div class="container-fluid p-0 m-0 main-container">
+        <div class="row justify-content-center align-items-center min-vh-100">
+            <div class="col-md-6">
+                <form method="POST" action="/modificar_cine" class="form-grid">
+                    <div class="mb-3">
+                        <label for="nombre_cine" class="form-label">Nombre del cine actual:</label>
+                        <input type="text" id="nombre_cine" name="nombre_cine" class="form-control" required>
+                    </div>
+                    <br>
+                    <div class="mb-3">
+                        <label for="nuevo_nombre_cine" class="form-label">Nuevo nombre del cine:</label>
+                        <input type="text" id="nuevo_nombre_cine" name="nuevo_nombre_cine" class="form-control">
+                    </div>
+                    <br>
+                    <div class="mb-3">
+                        <label for="numero_sala" class="form-label">Número de sala:</label>
+                        <input type="text" id="numero_sala" name="numero_sala" class="form-control" required>
+                    </div>
+                    <br>
+                    <div class="mb-3">
+                        <label for="nuevo_numero_sala" class="form-label">Nuevo número de sala:</label>
+                        <input type="text" id="nuevo_numero_sala" name="nuevo_numero_sala" class="form-control">
+                    </div>
+                    <br>
+                    <div class="mb-3">
+                        <label for="nuevo_asientos_sala" class="form-label">Nuevo número de asientos:</label>
+                        <input type="text" id="nuevo_asientos_sala" name="nuevo_asientos_sala" class="form-control">
+                    </div>
+                    <br>
+                    <div class="text-center">
+                        <input type="submit" value="Modificar" class="btn btn-primary">
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+
+    <footer class="footer">
+        <div class="container">
+            <p class="text-center"> </p>
+        </div>
+    </footer>
+</div>
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>

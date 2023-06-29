@@ -11,22 +11,47 @@
 </head>
 
 <body>
-    <h1>Listado de Cines y Salas</h1>
-    <ul>
-        {% for cine in cines %}
-        <li>
-            <strong>Cine:</strong> {{ cine.nombre }}<br><br>
-            <ul>
+    <nav class="navbar navbar-expand-lg navbar-light custom-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="">Cinema USAC</a>
+            <a class="nav-link" href="/">Regresar</a>
+        </div>
+    </nav><br><br>
+
+    <div class="container">
+        <h1>Listado de Cines y Salas</h1>
+
+        <table class="table">
+            <thead class="table-dark">
+                <tr>
+                    <th>Cine</th>
+                    <th>Número de Sala</th>
+                    <th>Asientos de Sala</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cine in cines %}
                 {% for sala in cine.sala %}
-                <li>
-                    <strong>Número de Sala:</strong> {{ sala.num }}<br>
-                    <strong>Asientos de Sala:</strong> {{ sala.asientos }}<br><br>
-                </li>
+                <tr>
+                    {% if loop.first %}
+                    <td rowspan="{{ cine.sala.get_length() }}">{{ cine.nombre }}</td>
+                    {% endif %}
+                    <td>{{ sala.num }}</td>
+                    <td>{{ sala.asientos }}</td>
+                </tr>
                 {% endfor %}
-            </ul>
-        </li>
-        {% endfor %}
-    </ul>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <br><br><br>
+    <footer class="footer">
+        <div class="container">
+            <p class="text-center"> </p>
+        </div>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>

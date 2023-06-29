@@ -11,31 +11,53 @@
 </head>
 
 <body>
-    <h1>Tarjetas de usuarios</h1>
-
-    <ul>
-        {% for usuario in usuarios %}
-        <li>
-            <strong>Nombre de usuario:</strong> {{ usuario.nombre }} <br>
-            <strong>Correo electrónico:</strong> {{ usuario.correo }} <br>
-            <strong>Tarjeta:</strong>
-            {% if usuario.tarjeta %}
-            <ul>
-                <li>
-                    <strong>Tipo:</strong> {{ usuario.tarjeta.tipo }} <br>
-                    <strong>Número de tarjeta:</strong> {{ usuario.tarjeta.numero }} <br>
-                    <strong>Titular:</strong> {{ usuario.tarjeta.titular }} <br>
-                    <strong>Fecha de expiración:</strong> {{ usuario.tarjeta.fecha_expiracion }} <br>
-                </li>
-            </ul>
-            {% else %}
-            No se ha asignado una tarjeta a este usuario.
-            {% endif %}
-        </li>
-        <br>
-        {% endfor %}
-    </ul>
+    <nav class="navbar navbar-expand-lg navbar-light custom-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="">Cinema USAC</a>
+            <a class="nav-link" href="/gestionar_tarjeta">Regresar</a>
+        </div>
+    </nav><br><br><br>
     
+    <div class="container">
+        <h1>Tarjetas de usuarios</h1>
+
+        <table class="table">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nombre de usuario</th>
+                    <th>Correo electrónico</th>
+                    <th>Tipo de tarjeta</th>
+                    <th>Número de tarjeta</th>
+                    <th>Titular</th>
+                    <th>Fecha de expiración</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for usuario in usuarios %}
+                <tr>
+                    <td>{{ usuario.nombre }}</td>
+                    <td>{{ usuario.correo }}</td>
+                    {% if usuario.tarjeta %}
+                    <td>{{ usuario.tarjeta.tipo }}</td>
+                    <td>{{ usuario.tarjeta.numero }}</td>
+                    <td>{{ usuario.tarjeta.titular }}</td>
+                    <td>{{ usuario.tarjeta.fecha_expiracion }}</td>
+                    {% else %}
+                    <td colspan="5">N/A</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <br><br><br>
+    <footer class="footer">
+        <div class="container">
+            <p class="text-center"> </p>
+        </div>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>

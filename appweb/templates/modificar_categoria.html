@@ -6,57 +6,102 @@
     <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link href="/static/styles.css" rel="stylesheet">
+    <link href="/static/estilo.css" rel="stylesheet">
     <title>Modificar Categoría</title>
 </head>
 
 <body>
-    <h1>Modificar Categoría</h1>
+    <nav class="navbar navbar-expand-lg navbar-light custom-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#">Cinema USAC</a>
+            <a class="nav-link" href="/login">Regresar</a>
+        </div>
+    </nav>
+
     {% if mensaje %}
     <p>{{ mensaje }}</p>
     {% endif %}
-    <form method="POST" action="/modificar_categoria">
-        <label for="nombre_categoria_actual">Nombre de la categoría actual:</label>
-        <input type="text" id="nombre_categoria_actual" name="nombre_categoria_actual" required>
-        <br>
-        <label for="nuevo_nombre_categoria">Nuevo nombre de la categoría:</label>
-        <input type="text" id="nuevo_nombre_categoria" name="nuevo_nombre_categoria">
-        <br>
-        <label for="modificar_pelicula">¿Desea modificar alguna película?</label>
-        <select id="modificar_pelicula" name="modificar_pelicula">
-            <option value="si">Sí</option>
-            <option value="no">No</option>
-        </select>
-        <br>
-        <div id="pelicula_fields">
-            <label for="nombre_pelicula">Nombre de la película:</label>
-            <input type="text" id="nombre_pelicula" name="nombre_pelicula">
-            <br>
-            <label for="nuevo_titulo">Nuevo título:</label>
-            <input type="text" id="nuevo_titulo" name="nuevo_titulo">
-            <br>
-            <label for="nuevo_director">Nuevo director:</label>
-            <input type="text" id="nuevo_director" name="nuevo_director">
-            <br>
-            <label for="nuevo_anio">Nuevo año:</label>
-            <input type="text" id="nuevo_anio" name="nuevo_anio">
-            <br>
-            <label for="nuevo_fecha">Nueva fecha:</label>
-            <input type="text" id="nuevo_fecha" name="nuevo_fecha">
-            <br>
-            <label for="nuevo_hora">Nueva hora:</label>
-            <input type="text" id="nuevo_hora" name="nuevo_hora">
-            <br>
-            <label for="nuevo_imagen">Nueva imagen:</label>
-            <input type="text" id="nuevo_imagen" name="nuevo_imagen">
-            <br>
-            <label for="nuevo_precio">Nuevo precio:</label>
-            <input type="text" id="nuevo_precio" name="nuevo_precio">
+
+    <div class="container-fluid p-0 m-0 main-container">
+        <div class="row justify-content-center align-items-center min-vh-100">
+            <div class="col-md-6">
+
+                <form method="POST" action="/modificar_categoria" class="form-grid">
+                    <div class="mb-3">
+                        <label for="nombre_categoria_actual" class="form-label">Nombre de la categoría actual:</label>
+                        <input type="text" id="nombre_categoria_actual" name="nombre_categoria_actual" class="form-control" required>
+                    </div>
+                    <br>
+                    <div class="mb-3">
+                        <label for="nuevo_nombre_categoria" class="form-label">Nuevo nombre de la categoría:</label>
+                        <input type="text" id="nuevo_nombre_categoria" name="nuevo_nombre_categoria" class="form-control">
+                    </div>
+                    <br>
+                    <div class="mb-3">
+                        <label for="modificar_pelicula" class="form-label">¿Desea modificar alguna película?</label>
+                        <select id="modificar_pelicula" name="modificar_pelicula" class="form-control">
+                            <option value="si">Sí</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div id="pelicula_fields">
+                        <div class="mb-3">
+                            <label for="nombre_pelicula" class="form-label">Nombre de la película:</label>
+                            <input type="text" id="nombre_pelicula" name="nombre_pelicula" class="form-control">
+                        </div>
+                        <br>
+                        <div class="mb-3">
+                            <label for="nuevo_titulo" class="form-label">Nuevo título:</label>
+                            <input type="text" id="nuevo_titulo" name="nuevo_titulo" class="form-control">
+                        </div>
+                        <br>
+                        <div class="mb-3">
+                            <label for="nuevo_director" class="form-label">Nuevo director:</label>
+                            <input type="text" id="nuevo_director" name="nuevo_director" class="form-control">
+                        </div>
+                        <br>
+                        <div class="mb-3">
+                            <label for="nuevo_anio" class="form-label">Nuevo año:</label>
+                            <input type="text" id="nuevo_anio" name="nuevo_anio" class="form-control">
+                        </div>
+                        <br>
+                        <div class="mb-3">
+                            <label for="nuevo_fecha" class="form-label">Nueva fecha:</label>
+                            <input type="text" id="nuevo_fecha" name="nuevo_fecha" class="form-control">
+                        </div>
+                        <br>
+                        <div class="mb-3">
+                            <label for="nuevo_hora" class="form-label">Nueva hora:</label>
+                            <input type="text" id="nuevo_hora" name="nuevo_hora" class="form-control">
+                        </div>
+                        <br>
+                        <div class="mb-3">
+                            <label for="nuevo_imagen" class="form-label">Nueva imagen:</label>
+                            <input type="text" id="nuevo_imagen" name="nuevo_imagen" class="form-control">
+                        </div>
+                        <br>
+                        <div class="mb-3">
+                            <label for="nuevo_precio" class="form-label">Nuevo precio:</label>
+                            <input type="text" id="nuevo_precio" name="nuevo_precio" class="form-control">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="text-center">
+                        <input type="submit" value="Modificar" class="btn btn-primary">
+                    </div>
+                </form>
+            </div>
         </div>
-        <br>
-        <input type="submit" value="Modificar">
-    </form>
-    
+
+    <br>
+    <footer class="footer">
+        <div class="container">
+            <p class="text-center"> </p>
+        </div>
+    </footer>
+</div>
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>
@@ -64,4 +109,5 @@
         integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
         crossorigin="anonymous"></script>
 </body>
+
 </html>

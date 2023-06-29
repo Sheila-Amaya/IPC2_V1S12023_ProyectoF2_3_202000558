@@ -5,45 +5,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link href="/static/styles.css" rel="stylesheet">
     <title>Modificar Usuario</title>
 </head>
 
 <body>
-    <h1>Modificar Usuario</h1>
+    <nav class="navbar navbar-expand-lg navbar-light custom-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#">Cinema USAC</a>
+            <a class="nav-link" href="/login">Regresar</a>
+        </div>
+    </nav>
 
-    {% if mensaje %}
-    <p>{{ mensaje }}</p>
-    {% endif %}
+    <div class="container-fluid p-0 m-0 main-container">
+        <div class="row justify-content-center align-items-center min-vh-100">
+            <div class="col-md-6">
+                {% if mensaje %}
+                <p>{{ mensaje }}</p>
+                {% endif %}
 
-    <form method="POST" action="/modificar_usuario">
-        <label for="correo">Correo del Usuario:</label>
-        <input type="email" id="correo" name="correo" required>
-        <br><br>
+                <form method="POST" action="/modificar_usuario" class="form-grid">
+                    <div class="mb-3">
+                        <label for="correo" class="form-label">Correo del Usuario:</label>
+                        <input type="email" id="correo" name="correo" class="form-control" required>
+                    </div>
+                    <br>
+                    <div class="mb-3">
+                        <label for="nuevo_nombre" class="form-label">Nuevo Nombre:</label>
+                        <input type="text" id="nuevo_nombre" name="nuevo_nombre" class="form-control" required>
+                    </div>
+                    <br>
+                    <div class="mb-3">
+                        <label for="nuevo_apellido" class="form-label">Nuevo Apellido:</label>
+                        <input type="text" id="nuevo_apellido" name="nuevo_apellido" class="form-control" required>
+                    </div>
+                    <br>
+                    <div class="mb-3">
+                        <label for="nuevo_telefono" class="form-label">Nuevo Teléfono:</label>
+                        <input type="text" id="nuevo_telefono" name="nuevo_telefono" class="form-control" required>
+                    </div>
+                    <br>
+                    <div class="mb-3">
+                        <label for="nuevo_correo" class="form-label">Nuevo Correo:</label>
+                        <input type="email" id="nuevo_correo" name="nuevo_correo" class="form-control" required>
+                    </div>
+                    <br>
+                    <div class="mb-3">
+                        <label for="nueva_contrasena" class="form-label">Nueva Contraseña:</label>
+                        <input type="password" id="nueva_contrasena" name="nueva_contrasena" class="form-control"
+                            required>
+                    </div>
+                    <br>
+                    <div class="text-center">
+                        <input type="submit" value="Modificar Usuario" class="btn btn-primary">
+                    </div>
+                </form>
 
-        <label for="nuevo_nombre">Nuevo Nombre:</label>
-        <input type="text" id="nuevo_nombre" name="nuevo_nombre" required>
-        <br><br>
+            </div>
+        </div>
+        
+        <br>
+        <footer class="footer">
+            <div class="container">
+                <p class="text-center"> </p>
+            </div>
+        </footer>
+    </div>
 
-        <label for="nuevo_apellido">Nuevo Apellido:</label>
-        <input type="text" id="nuevo_apellido" name="nuevo_apellido" required>
-        <br><br>
-
-        <label for="nuevo_telefono">Nuevo Teléfono:</label>
-        <input type="text" id="nuevo_telefono" name="nuevo_telefono" required>
-        <br><br>
-
-        <label for="nuevo_correo">Nuevo Correo:</label>
-        <input type="email" id="nuevo_correo" name="nuevo_correo" required>
-        <br><br>
-
-        <label for="nueva_contrasena">Nueva Contraseña:</label>
-        <input type="password" id="nueva_contrasena" name="nueva_contrasena" required>
-        <br><br>
-
-        <input type="submit" value="Modificar Usuario">
-    </form>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>
@@ -51,4 +80,5 @@
         integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
         crossorigin="anonymous"></script>
 </body>
+
 </html>

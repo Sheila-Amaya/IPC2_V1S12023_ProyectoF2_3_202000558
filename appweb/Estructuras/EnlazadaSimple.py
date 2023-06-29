@@ -326,3 +326,10 @@ class EnlazadaSimple:
             yield current.dato  # Devuelve el dato del nodo actual
             current = current.siguiente  # Mueve al siguiente nodo de la lista
 
+    def get_length(self):
+        current = self.primero
+        count = 0
+        while current:
+            count += 1
+            current = current.siguiente
+        return count

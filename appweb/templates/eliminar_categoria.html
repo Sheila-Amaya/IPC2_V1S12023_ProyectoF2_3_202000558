@@ -5,28 +5,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link href="/static/styles.css" rel="stylesheet">
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="/static/estilo.css" rel="stylesheet">
     <title>Eliminar Categoría</title>
 </head>
 
 <body>
-    <h1>Eliminar Categoría</h1>
-    <form method="POST" action="/eliminar_categoria">
-        <label>Nombre de la categoría:</label>
-        <input type="text" name="nombre_categoria" required>
-        <br>
-        <input type="radio" name="eliminar_pelicula" value="no" checked> Eliminar categoría completa<br>
-        <input type="radio" name="eliminar_pelicula" value="si"> Eliminar película de la categoría<br>
-        <br>
-        <label>Nombre de la película (solo si se selecciona eliminar película):</label>
-        <input type="text" name="nombre_pelicula">
-        <br>
-        <input type="submit" value="Eliminar">
-    </form>
-    {% if mensaje %}
-    <p>{{ mensaje }}</p>
-    {% endif %}
+    <nav class="navbar navbar-expand-lg navbar-light custom-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#">Cinema USAC</a>
+            <a class="nav-link" href="/login">Regresar</a>
+        </div>
+    </nav><br>
+
+    <div class="container-fluid p-0 m-0 main-container">
+        <div class="row justify-content-center align-items-center min-vh-100">
+            <div class="col-md-6">
+                <form method="POST" action="/eliminar_categoria" class="form-grid">
+                    <div class="mb-3">
+                        <label for="nombre_categoria" class="form-label">Nombre de la categoría:</label>
+                        <input type="text" name="nombre_categoria" class="form-control" required>
+                    </div>
+                    <br>
+                    <div class="mb-3">
+                        <input type="radio" name="eliminar_pelicula" value="no" id="eliminar_completa" checked>
+                        <label for="eliminar_completa">Eliminar categoría completa</label>
+                        <br>
+                        <input type="radio" name="eliminar_pelicula" value="si" id="eliminar_pelicula">
+                        <label for="eliminar_pelicula">Eliminar película de la categoría</label>
+                    </div>
+                    <br>
+                    <div class="mb-3">
+                        <label for="nombre_pelicula" class="form-label">Nombre de la película (solo si se selecciona eliminar película):</label>
+                        <input type="text" name="nombre_pelicula" id="nombre_pelicula" class="form-control">
+                    </div>
+                    <br>
+                    <div class="text-center">
+                        <input type="submit" value="Eliminar" class="btn btn-primary">
+                    </div>
+                </form>
+                {% if mensaje %}
+                <p>{{ mensaje }}</p>
+                {% endif %}
+            </div>
+        </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="text-center"> </p>
+        </div>
+    </footer>
+</div>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

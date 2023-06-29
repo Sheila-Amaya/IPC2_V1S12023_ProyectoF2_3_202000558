@@ -5,6 +5,7 @@ class CicularDobleEnlazada:
     def __init__(self):
         self.primero = None
         self.ultimo = None
+        self.length = 0
         
     def estaVacia(self):
         return self.primero == None
@@ -23,6 +24,7 @@ class CicularDobleEnlazada:
             self.primero.anterior = nuevo_nodo  # El anterior del primer nodo actual se actualiza al nuevo nodo
             self.ultimo.siguiente = nuevo_nodo  # El siguiente del último nodo actual se actualiza al nuevo nodo
             self.ultimo = nuevo_nodo  # Actualizamos el puntero del último nodo a ser el nuevo nodo
+        self.length += 1
 
     def recorrerInicio(self):
         temp = self.primero
@@ -46,27 +48,28 @@ class CicularDobleEnlazada:
                     return False
 
     def eliminar(self, dato):
-        if self.esta_vacia():
+        if self.estaVacia():
             return
 
         nodo_actual = self.primero
         while nodo_actual:
-            if nodo_actual.dato == dato:  # Si se encuentra el dato buscado
-                if nodo_actual == self.primero:  # Si el nodo a eliminar es el primer nodo
+            if nodo_actual.dato == dato:
+                if nodo_actual == self.primero:
                     self.primero = nodo_actual.siguiente
                     self.primero.anterior = self.ultimo
                     self.ultimo.siguiente = self.primero
-                elif nodo_actual == self.ultimo:  # Si el nodo a eliminar es el último nodo
+                elif nodo_actual == self.ultimo:
                     self.ultimo = nodo_actual.anterior
                     self.ultimo.siguiente = self.primero
                     self.primero.anterior = self.ultimo
-                else:  # Si el nodo a eliminar está en medio de la lista
+                else:
                     nodo_actual.anterior.siguiente = nodo_actual.siguiente
                     nodo_actual.siguiente.anterior = nodo_actual.anterior
+                self.length -= 1
                 return
-            
+
             nodo_actual = nodo_actual.siguiente
-            if nodo_actual == self.primero:  # Si se ha recorrido toda la lista sin encontrar el dato
+            if nodo_actual == self.primero:
                 return
 
     def recorrerPeliculas(self):
@@ -208,3 +211,6 @@ class CicularDobleEnlazada:
             nodo_actual = nodo_actual.siguiente  # Avanzar al siguiente nodo
             if nodo_actual == self.primero:  # Si se ha vuelto al primer nodo, se ha recorrido toda la lista
                 break
+            
+    def get_length(self):
+        return self.length
