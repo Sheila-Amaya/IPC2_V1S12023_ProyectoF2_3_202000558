@@ -5,48 +5,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <link href="/static/styles.css" rel="stylesheet">
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="/static/estilo2.css" rel="stylesheet">
     <title>Gestion Usuarios</title>
 </head>
 
 <body>
-
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadModal">
-        Cargar XML
-    </button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="uploadModalLabel">Usuarios</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="container-fluid p-0 m-0">
+        <div class="row">
+            <nav class="navbar navbar-expand-lg navbar-light custom-navbar">
+                <div class="container">
+                    <a class="navbar-brand" href="/">Cinema USAC</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Gestionar Usuarios
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                        data-bs-target="#uploadModal">Cargar XML</a></li>
+                                    <li><a class="dropdown-item" href="/usuarios">Mostrar usuarios</a></li>
+                                    <li><a class="dropdown-item" href="/agregar_usuario">Agregar usuarios</a></li>
+                                    <li><a class="dropdown-item" href="/eliminar_usuario">Eliminar usuarios</a></li>
+                                    <li><a class="dropdown-item" href="/modificar_usuario">Modificar usuarios</a></li>
+                                    <li><a class="dropdown-item" href="/xml_usuarios">Generar salida xml</a></li>
+                                </ul>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/ventana_administrador">Regresar</a>
+                                </li>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <form method="POST" enctype="multipart/form-data" action="/upload">
-                        <div class="mb-3">
-                            <input class="form-control" type="file" name="xml_file">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Cargar</button>
-                    </form>
+            </nav>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="uploadModal" tabindex="-1" aria-labelledby="uploadModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="uploadModalLabel">Usuarios</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" enctype="multipart/form-data" action="/upload">
+                            <div class="mb-3">
+                                <input class="form-control" type="file" name="xml_file">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Cargar</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+            integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+            crossorigin="anonymous"></script>
     </div>
-
-    <a href="/usuarios">Mostrar usuarios</a>
-    <a href="/agregar_usuario">Agregar usuarios</a>
-    <a href="/eliminar_usuario">eliminar usuarios</a>
-    <a href="/modificar_usuario">modificar usuarios</a>
-    
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
-        integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
-        crossorigin="anonymous"></script>
 </body>
+
 </html>

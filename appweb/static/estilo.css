@@ -13,13 +13,11 @@
     background-color: #023e8a; /* Color de fondo del navbar */
 }
 
-
 body {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
     height: 100%;
-    background-color: #ced4da;
+    background-color: #ced4da; /* Color de fondo del body */
 }
 /*login*/
 .col-md-4 {
@@ -69,7 +67,7 @@ body {
 
 .footer {
     background-color: #023e8a;
-    padding: 20px 0;
+    padding: 50px 0;
     text-align: center;
     width: 100%;
 }

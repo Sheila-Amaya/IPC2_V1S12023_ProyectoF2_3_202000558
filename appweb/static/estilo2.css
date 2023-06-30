@@ -1,0 +1,18 @@
+.custom-navbar .navbar-brand {
+    font-size: 54px; /* Tamaño de fuente */
+    font-weight: bold; /* Grosor de fuente */
+    color: #fff; /* Color del texto del navbar */
+}
+
+.custom-navbar .nav-link {
+    color: #fff; /* Color del texto de los enlaces del navbar */
+}
+
+.navbar.custom-navbar {
+    background-color: #023e8a; /* Color de fondo del navbar */
+}
+
+body {
+    height: 100%;
+    background-color: #ced4da; /* Color de fondo del body */
+}

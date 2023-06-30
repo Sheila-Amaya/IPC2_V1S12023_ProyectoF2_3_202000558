@@ -7,6 +7,8 @@ from Estructuras.DobleEnlazada import *
 from favorito import *
 from boleto import *
 from flask import Flask, jsonify
+import xml.etree.ElementTree as ET
+import os
 
 app = Flask(__name__)
 
@@ -915,6 +917,260 @@ def getTarjeta():
     except:
         return {"mensaje": "Error interno en el servidor", "status": 500}
 
+#XML SALIDA
+@app.route('/xml_usuarios', methods=['GET'])
+def xml_usuarios():
+    # Nombre de la carpeta para almacenar los archivos XML
+    carpeta = "archivos_salida"
+
+    # Crear la carpeta si no existe
+    if not os.path.exists(carpeta):
+        os.makedirs(carpeta)
+
+    # Crear el elemento raíz del XML
+    root = ET.Element("usuarios")
+
+    # Recorrer la lista de usuarios y crear elementos XML para cada usuario
+    temp = listaUsuarios.primero
+    while temp is not None:
+        # Crea el elemento de usuario
+        usuario = ET.SubElement(root, "usuario")
+
+        # Agregar elementos dentro del usuario
+        rol = ET.SubElement(usuario, "rol")
+        rol.text = temp.dato.rol
+
+        nombre = ET.SubElement(usuario, "nombre")
+        nombre.text = temp.dato.nombre
+
+        apellido = ET.SubElement(usuario, "apellido")
+        apellido.text = temp.dato.apellido
+
+        telefono = ET.SubElement(usuario, "telefono")
+        telefono.text = temp.dato.telefono
+
+        correo = ET.SubElement(usuario, "correo")
+        correo.text = temp.dato.correo
+
+        contrasena = ET.SubElement(usuario, "contrasena")
+        contrasena.text = temp.dato.contrasena
+
+        # Crea el elemento de películas favoritas y agregar elementos de películas
+        peliculas_favoritas = ET.SubElement(usuario, "peliculas_favoritas")
+        for pelicula in temp.dato.peliculas_Favoritas:
+            pelicula_element = ET.SubElement(peliculas_favoritas, "pelicula")
+            pelicula_element.text = pelicula
+
+        # Crear elemento de historial de boletos y agregar elementos de boletos
+        historial_boletos = ET.SubElement(usuario, "historial_boletos")
+        for boleto in temp.dato.historial_Boletos:
+            boleto_element = ET.SubElement(historial_boletos, "boleto")
+            # Agregar elementos de boleto
+
+            # ...
+
+        # Agregar tarjeta de crédito al usuario
+        if temp.dato.tarjeta is not None:
+            tarjeta = ET.SubElement(usuario, "tarjeta")
+
+            tipo = ET.SubElement(tarjeta, "tipo")
+            tipo.text = temp.dato.tarjeta.tipo
+
+            numero = ET.SubElement(tarjeta, "numero")
+            numero.text = temp.dato.tarjeta.numero
+
+            titular = ET.SubElement(tarjeta, "titular")
+            titular.text = temp.dato.tarjeta.titular
+
+            fecha_expiracion = ET.SubElement(tarjeta, "fecha_expiracion")
+            fecha_expiracion.text = temp.dato.tarjeta.fecha_expiracion
+
+        temp = temp.siguiente
+
+    # Combinar la ruta de la carpeta con el nombre del archivo XML
+    ruta_archivo = os.path.join(carpeta, "usuarios.xml")
+
+    # Convertir el árbol XML en una cadena con formato
+    xml_string = ET.tostring(root, encoding="utf-8", xml_declaration=True).decode("utf-8")
+
+    # Escribir la cadena con formato en el archivo
+    with open(ruta_archivo, "w") as file:
+        file.write(xml_string)
+
+    return jsonify({'message': 'XML usuarios generado correctamente.'})
+
+@app.route('/xml_categorias', methods=['GET'])
+def xml_categorias():
+    # Nombre de la carpeta para almacenar los archivos XML
+    carpeta = "archivos_salida"
+
+    # Crear la carpeta si no existe
+    if not os.path.exists(carpeta):
+        os.makedirs(carpeta)
+
+    # Crear el elemento raíz del XML
+    root = ET.Element("categorias")
+
+    temp = listaCategorias.primero
+    while temp is not None:
+        # Crea el elemento categoria
+        categoria = ET.Element("categoria")
+
+        # Crea el elemento nombre_categoria y agrega el nombre
+        nombre_categoria = ET.SubElement(categoria, "nombre")
+        nombre_categoria.text = temp.dato.nombre
+
+        # Crea el elemento de peliculas
+        peliculas = ET.SubElement(categoria, "peliculas")
+
+        # Buscar la categoría en la lista de categorías por nombre
+        categoria_buscada = listaCategorias.buscarPorCategoria(temp.dato.nombre)
+        if categoria_buscada is not None:
+            pelicula_actual = categoria_buscada.pelicula.primero
+            while pelicula_actual is not None:
+                # Crear el elemento pelicula
+                pelicula_element = ET.SubElement(peliculas, "pelicula")
+
+                # Crear las etiquetas para los atributos de la película y asignar sus valores
+                titulo = ET.SubElement(pelicula_element, "titulo")
+                titulo.text = pelicula_actual.dato.titulo
+
+                director = ET.SubElement(pelicula_element, "director")
+                director.text = pelicula_actual.dato.director
+
+                anio = ET.SubElement(pelicula_element, "anio")
+                anio.text = str(pelicula_actual.dato.anio)
+
+                fecha = ET.SubElement(pelicula_element, "fecha")
+                fecha.text = pelicula_actual.dato.fecha
+
+                hora = ET.SubElement(pelicula_element, "hora")
+                hora.text = pelicula_actual.dato.hora
+
+                precio = ET.SubElement(pelicula_element, "precio")
+                precio.text = str(pelicula_actual.dato.precio)
+
+                pelicula_actual = pelicula_actual.siguiente
+                if pelicula_actual == categoria_buscada.pelicula.primero:
+                    break
+
+        # Agregar el elemento categoria al elemento raíz
+        root.append(categoria)
+
+        temp = temp.siguiente
+        if temp == listaCategorias.primero:
+            break
+
+    # Combinar la ruta de la carpeta con el nombre del archivo XML
+    ruta_archivo = os.path.join(carpeta, "categorias.xml")
+
+    # Convertir el árbol XML en una cadena con formato
+    xml_string = ET.tostring(root, encoding="utf-8", xml_declaration=True).decode("utf-8")
+
+    # Escribir la cadena con formato en el archivo
+    with open(ruta_archivo, "w") as file:
+        file.write(xml_string)
+
+    return jsonify({'message': 'XML categorias generado correctamente.'})
+
+@app.route('/xml_salas', methods=['GET'])
+def xml_salas():
+    # Nombre de la carpeta para almacenar los archivos XML
+    carpeta = "archivos_salida"
+
+    # Crear la carpeta si no existe
+    if not os.path.exists(carpeta):
+        os.makedirs(carpeta)
+
+    # Crear el elemento raíz del XML
+    root = ET.Element("cines")
+
+    temp = listaCine.primero
+    while temp is not None:
+        # Crea el elemento cine
+        cine = ET.Element("cine")
+
+        # Crea el elemento nombre_cine y agrega el nombre
+        nombre_cine = ET.SubElement(cine, "nombre")
+        nombre_cine.text = temp.dato.nombre
+
+        # Crea el elemento de salas
+        salas = ET.SubElement(cine, "salas")
+
+        # Recorrer la lista de salas del cine actual
+        temp.dato.sala.recorrerSalas()
+        sala_actual = temp.dato.sala.primero
+        while sala_actual is not None:
+            # Crear el elemento sala
+            sala_element = ET.SubElement(salas, "sala")
+
+            # Crear las etiquetas para los atributos de la sala y asignar sus valores
+            numero = ET.SubElement(sala_element, "numero")
+            numero.text = sala_actual.dato.num
+
+            asientos = ET.SubElement(sala_element, "asientos")
+            asientos.text = sala_actual.dato.asientos
+
+            sala_actual = sala_actual.siguiente
+
+        # Agregar el elemento cine al elemento raíz
+        root.append(cine)
+
+        temp = temp.siguiente
+
+    # Combinar la ruta de la carpeta con el nombre del archivo XML
+    ruta_archivo = os.path.join(carpeta, "salas.xml")
+
+    # Convertir el árbol XML en una cadena con formato
+    xml_string = ET.tostring(root, encoding="utf-8", xml_declaration=True).decode("utf-8")
+
+    # Escribir la cadena con formato en el archivo
+    with open(ruta_archivo, "w") as file:
+        file.write(xml_string)
+
+    return jsonify({'message': 'XML salas generado correctamente.'})
+
+@app.route('/xml_tarjetas', methods=['GET'])
+def xml_tarjetas():
+    # Nombre de la carpeta para almacenar los archivos XML
+    carpeta = "archivos_salida"
+
+    # Crear la carpeta si no existe
+    if not os.path.exists(carpeta):
+        os.makedirs(carpeta)
+
+    # Crear el elemento raíz del XML
+    root = ET.Element("tarjetas")
+
+    # Recorrer la lista de tarjetas y crear elementos XML para cada tarjeta
+    for tarjeta in listaTarjetas:
+        # Crear el elemento de tarjeta
+        tarjeta_element = ET.SubElement(root, "tarjeta")
+
+        # Agregar elementos dentro de la tarjeta
+        tipo = ET.SubElement(tarjeta_element, "tipo")
+        tipo.text = tarjeta.tipo
+
+        numero = ET.SubElement(tarjeta_element, "numero")
+        numero.text = tarjeta.numero
+
+        titular = ET.SubElement(tarjeta_element, "titular")
+        titular.text = tarjeta.titular
+
+        fecha_expiracion = ET.SubElement(tarjeta_element, "fecha_expiracion")
+        fecha_expiracion.text = tarjeta.fecha_expiracion
+
+    # Combinar la ruta de la carpeta con el nombre del archivo XML
+    ruta_archivo = os.path.join(carpeta, "tarjetas.xml")
+
+    # Convertir el árbol XML en una cadena con formato
+    xml_string = ET.tostring(root, encoding="utf-8", xml_declaration=True).decode("utf-8")
+
+    # Escribir la cadena con formato en el archivo
+    with open(ruta_archivo, "w") as file:
+        file.write(xml_string)
+
+    return jsonify({'message': 'XML tarjetas generado correctamente.'})
 
 @app.route('/logout')
 def logout():

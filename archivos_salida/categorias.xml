@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='utf-8'?>
+<categorias>
+    <categoria>
+        <nombre>Aventura</nombre>
+        <peliculas>
+            <pelicula>
+                <titulo>Las momias del faraon</titulo>
+                <director>Luc Besson</director>
+                <anio>2010</anio>
+                <fecha>2023-02-05</fecha>
+                <hora>19:30</hora>
+                <precio>52.0</precio>
+            </pelicula>
+            <pelicula>
+                <titulo>Aladdin</titulo>
+                <director>Chad Stahelski</director>
+                <anio>2019</anio>
+                <fecha>2023-06-06</fecha>
+                <hora>20:00</hora>
+                <precio>55.0</precio>
+            </pelicula>
+        </peliculas>
+    </categoria>
+    <categoria>
+        <nombre>Infantil</nombre>
+        <peliculas>
+            <pelicula>
+                <titulo>Sing 2</titulo>
+                <director>Garth Jenningsr</director>
+                <anio>2021</anio>
+                <fecha>2023-04-05</fecha>
+                <hora>14:30</hora>
+                <precio>75.0</precio>
+            </pelicula>
+            <pelicula>
+                <titulo>spirited away</titulo>
+                <director>Hayao Miyazaki</director>
+                <anio>2001</anio>
+                <fecha>2023-07-07</fecha>
+                <hora>21:15</hora>
+                <precio>82.0</precio>
+            </pelicula>
+        </peliculas>
+    </categoria>
+    <categoria>
+        <nombre>Acci�n</nombre>
+        <peliculas>
+            <pelicula>
+                <titulo>Avengers: Endgame</titulo>
+                <director>Joe Russo, Anthony Russo</director>
+                <anio>2019</anio>
+                <fecha>2023-06-05</fecha>
+                <hora>18:30</hora>
+                <precio>42.0</precio>
+            </pelicula>
+            <pelicula>
+                <titulo>John Wick</titulo>
+                <director>Chad Stahelski</director>
+                <anio>2014</anio>
+                <fecha>2023-06-06</fecha>
+                <hora>20:00</hora>
+                <precio>45.0</precio>
+            </pelicula>
+            <pelicula>
+                <titulo>Misi�n Imposible: Fallout</titulo>
+                <director>Christopher McQuarrie</director>
+                <anio>2018</anio>
+                <fecha>2023-06-07</fecha>
+                <hora>19:15</hora>
+                <precio>55.0</precio>
+            </pelicula>
+        </peliculas>
+    </categoria>
+    <categoria>
+        <nombre>Comedia</nombre>
+        <peliculas>
+            <pelicula>
+                <titulo>Deadpool</titulo>
+                <director>Tim Miller</director>
+                <anio>2016</anio>
+                <fecha>2023-06-05</fecha>
+                <hora>20:30</hora>
+                <precio>65.0</precio>
+            </pelicula>
+            <pelicula>
+                <titulo>Superbad</titulo>
+                <director>Greg Mottola</director>
+                <anio>2007</anio>
+                <fecha>2023-06-06</fecha>
+                <hora>21:00</hora>
+                <precio>0</precio>
+            </pelicula>
+            <pelicula>
+                <titulo>Bridesmaids</titulo>
+                <director>Paul Feig</director>
+                <anio>2011</anio>
+                <fecha>2023-06-07</fecha>
+                <hora>20:15</hora>
+                <precio>42.0</precio>
+            </pelicula>
+        </peliculas>
+    </categoria>
+</categorias>
