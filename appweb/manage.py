@@ -9,6 +9,7 @@ from boleto import *
 from flask import Flask, jsonify
 import xml.etree.ElementTree as ET
 import os
+from factura import *
 
 app = Flask(__name__)
 
@@ -24,6 +25,9 @@ listaFavoritos = []
 listaAsientos = []
 listaHistorial = []
 boletos = 0
+listaFacturas = []
+correo = None
+contrasena = None
 
 
 def crear_usuario_por_defecto():  # usuario administrador
@@ -39,11 +43,9 @@ def crear_usuario_por_defecto():  # usuario administrador
     # Agregar el usuario a la lista de usuarios
     listaUsuarios.agregarUltimo(usuario)
 
-
 @app.route('/')  # PANTALLA INICIO
 def home():
     return render_template('home.html', categorias=listaCategorias)
-
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -67,12 +69,10 @@ def login():
         return render_template('login.html', error=error)
     return render_template('login.html')
 
-
 @app.route('/ventana_cliente')
 def ventana_cliente():
     # Lógica y renderizado de la página del panel de cliente
     return render_template('cliente.html')
-
 
 @app.route('/ventana_administrador')
 def ventana_administrador():
@@ -118,12 +118,10 @@ def upload_xml():
     # Si la solicitud es GET, simplemente muestra el formulario
     return render_template('gestionU.html')
 
-
 @app.route('/usuarios')
 def mostrar_usuarios():
     # Utiliza la variable global listaUsuarios para pasar la lista de usuarios a la plantilla HTML
     return render_template('usuarios.html', usuarios=listaUsuarios)
-
 
 @app.route('/agregar_usuario', methods=['GET', 'POST'])
 def agregar_usuario():
@@ -155,7 +153,6 @@ def agregar_usuario():
 
     return render_template('agregar_usuario.html')
 
-
 @app.route('/eliminar_usuario', methods=['GET', 'POST'])
 def eliminar_usuario():
     if request.method == 'POST':
@@ -163,7 +160,6 @@ def eliminar_usuario():
         listaUsuarios.eliminarPorCorreo(correo)  # Eliminar el nodo de la lista
         return render_template('eliminar_usuario.html')
     return render_template('eliminar_usuario.html')
-
 
 @app.route('/modificar_usuario', methods=['GET', 'POST'])
 def modificar_usuario():
@@ -233,12 +229,10 @@ def xml_categoria():
         # Si la solicitud es GET, simplemente muestra el formulario
         return render_template('gestionC.html')
 
-
 @app.route('/mostrar_cp')
 def mostrar_c():
     # Utiliza la variable global listaUsuarios para pasar la lista de usuarios a la plantilla HTML
     return render_template('categorias.html', categorias=listaCategorias)
-
 
 @app.route('/agregar_categoria', methods=['GET', 'POST'])
 def agregar_categoria():
@@ -271,7 +265,6 @@ def agregar_categoria():
             mensaje = "No se agregó ninguna película a la categoría."
         return render_template('agregar_categoria.html', mensaje=mensaje)
     return render_template('agregar_categoria.html')
-
 
 @app.route('/modificar_categoria', methods=['GET', 'POST'])
 def modificar_categoria():
@@ -315,7 +308,6 @@ def modificar_categoria():
             return render_template('modificar_categoria.html', mensaje=mensaje)
     return render_template('modificar_categoria.html')
 
-
 @app.route('/eliminar_categoria', methods=['GET', 'POST'])
 def eliminar_categoria():
     if request.method == 'POST':
@@ -344,7 +336,6 @@ def eliminar_categoria():
 def gestion_salas():
     # ...
     return render_template('gestionS.html')
-
 
 @app.route('/upload3', methods=['GET', 'POST'])
 def xml_sala():
@@ -375,11 +366,9 @@ def xml_sala():
         # Si la solicitud es GET, simplemente muestra el formulario
         return render_template('gestionU.html')
 
-
 @app.route('/mostrar_s')
 def mostrar_s():
     return render_template('salas.html', cines=listaCine)
-
 
 @app.route('/modificar_cine', methods=['GET', 'POST'])
 def modificar_cine():
@@ -417,7 +406,6 @@ def modificar_cine():
         return render_template('modificar_cine.html', mensaje=mensaje)
 
     return render_template('modificar_cine.html')
-
 
 @app.route('/agregar_salas', methods=['GET', 'POST'])
 def agregar_sala():
@@ -457,7 +445,6 @@ def agregar_sala():
 
     return render_template('agregar_salas.html')
 
-
 @app.route('/eliminar_cine', methods=['GET', 'POST'])
 def eliminar_cine():
     if request.method == 'POST':
@@ -478,7 +465,6 @@ def eliminar_cine():
 def gestion_tarjeta():
     # ...
     return render_template('gestionT.html')
-
 
 @app.route('/upload4', methods=['GET', 'POST'])
 def upload_tarjetas():
@@ -512,7 +498,7 @@ def upload_tarjetas():
     # Si la solicitud es GET, simplemente muestra el formulario
     return render_template('gestionT.html')
 
-
+#asigno la tarjeta a los usuarios
 @app.route('/mostrar_t')
 def mostrar_t():
     # Obtener la lista de usuarios y tarjetas
@@ -529,7 +515,6 @@ def mostrar_t():
                     usuario.tarjeta = tarjeta
 
     return render_template('tarjetas.html', usuarios=listaUsuarios)
-
 
 @app.route('/agregar_tarjeta', methods=['GET', 'POST'])
 def agregar_tarjeta():
@@ -598,7 +583,6 @@ def modificar_tarjeta():
 
     return render_template('modificar_tarjeta.html')
 
-
 @app.route('/eliminar_tarjeta', methods=['GET', 'POST'])
 def eliminar_tarjeta():
     if request.method == 'POST':
@@ -630,6 +614,7 @@ def eliminar_tarjeta():
     return render_template('eliminar_tarjeta.html')
 
 # GESTION BOLETOS ADMINISTRADOR
+
 
 
 # REGISTRAR USUARIO CLIENTE
@@ -664,12 +649,10 @@ def agregar_cliente():
     return render_template('agregar_usuario_cliente.html')
 
 # CLIENTE
-
 # VER PELICULAS-GENERAL-POR CATEGORIA-DETALLES
 @app.route('/ver_general', methods=['GET', 'POST'])
 def ver_peliculas():
     return render_template('ver_general.html', categorias=listaCategorias)
-
 
 @app.route('/ver_filtrar', methods=['GET', 'POST'])
 def ver_filtrar():
@@ -688,7 +671,6 @@ def ver_filtrar():
             mensaje = "Debe ingresar la categoría."
 
     return render_template('ver_filtrar.html', mensaje=mensaje)
-
 
 @app.route('/ver_detalles_pelicula', methods=['GET', 'POST'])
 def ver_detalles_pelicula():
@@ -744,14 +726,125 @@ def lista_favoritas():
 
 
 # COMPRAR BOLETO
-
-
 @app.route('/comprar_boletos', methods=['GET', 'POST'])
 def comprar_boletos():
-    return render_template('comprar_boletos.html')
+    boletos = 0
+    if request.method == 'POST':
+        cine = request.form.get('cine')
+        sala = request.form.get('sala')
+        numero_asiento = request.form.get('numero_asiento')
+        categoria = request.form.get('categoria')
+        titulo = request.form.get('titulo')
+        num_boletos = request.form.get('num_boletos')
+        #GENERAR FACTURA
+        nombre = request.form.get('nombre')
+        NIT = request.form.get('nit')
+        direccion = request.form.get('direccion')
+        
+        cine_actual = listaCine.buscarCine(cine)
+        print(cine_actual)
+        if cine_actual is not None:
+            sala_encontrada = cine_actual.sala.buscarPorSala(sala)
+            print(sala_encontrada)
+            if sala_encontrada is not None:
+                rango_asientos = range(1, int(sala_encontrada.asientos) + 1)
+                if int(numero_asiento) in rango_asientos:
+                    if numero_asiento not in listaAsientos:
+                        listaAsientos.append(numero_asiento)
+                        totalCompra = 0
+
+                        categoria_actual = listaCategorias.buscarPorCategoria(categoria)
+                        if categoria_actual is not None:
+                            pelicula_encontrada = categoria_actual.pelicula.buscarPeliculaParaBoleto(titulo)
+                            if pelicula_encontrada is not None:
+                                #print("Precio de la película:", pelicula_encontrada.precio)
+                                #print("Cantidad de boletos:", num_boletos)
+                                totalCompra = pelicula_encontrada.precio * int(num_boletos)
+                                boletos += 1  # Inicializar la variable boletos
+                                generarFactura(nombre ,NIT,direccion,categoria, cine_actual.nombre, titulo, num_boletos, sala, boletos, totalCompra, numero_asiento)
+
+                                error = "No se encontró la película especificada"
+                        else:
+                            error = "No se encontró la categoría especificada"
+                    else:
+                        error = "El asiento ya está ocupado por otro usuario"
+                else:
+                    error = "El número de asiento ingresado no es válido"
+            else:
+                error = "No se encontró la sala especificada"
+        else:
+            error = "No se encontró el cine especificado"
+
+        return render_template('comprar_boletos.html', cines=listaCine,categorias=listaCategorias, error=error)
+
+    return render_template('comprar_boletos.html', cines=listaCine,categorias=listaCategorias)
+
+@app.route('/facturas', methods=['GET'])
+def mostrar_facturas():
+    return render_template('facturas.html', facturas=listaFacturas)
+
+def generarFactura(nombre ,NIT,direccion, categoria, cine, pelicula, num_boletos, sala, boletos, total, numero_asiento):
+    categoria_actual = listaCategorias.buscarPorCategoria(categoria)
+    peli = categoria_actual.pelicula.buscarPeli(pelicula)
+        
+    fecha = peli.fecha
+    hora = peli.hora
+    
+    if nombre == "C/F":
+        NIT ="N/A"
+        direccion ="N/A"
+        factura = Factura(nombre,NIT,direccion,cine, "#USACIPC2_202000558_" + str(boletos), nombre, '', '', pelicula, fecha, hora, sala, num_boletos, numero_asiento, total)
+    else:
+        factura = Factura(nombre ,NIT,direccion,cine, "#USACIPC2_202000558_" + str(boletos), nombre, NIT, direccion, pelicula, fecha, hora, sala, num_boletos, numero_asiento, total)
+    
+    listaFacturas.append(factura)
+    boleto = Boleto(nombre, cine, "#USACIPC2_202000558_" + str(boletos), pelicula, fecha, hora, num_boletos,sala, numero_asiento, total,False)
+    listaHistorial.append(boleto)
 
 
 # HISTORIAL BOLETO
+@app.route('/lista_historial')
+def lista_():
+    if len(listaHistorial) == 0:
+        print("\n\tEl historial de boletos está vacío.")
+    else:
+        temp = listaUsuarios.primero
+        while temp:
+            if temp.dato.nombre == correo and temp.dato.contrasena == contrasena:
+                agregarHistorialFavoritos(correo , contrasena)
+                    #self.listaUsuario.mostrarUsuario()
+            temp = temp.siguiente
+    return render_template('historial_boletos.html', historial=listaHistorial)
+
+
+
+def cancelarBoleto(numero_boleto):
+    boleto_encontrado = None
+    for boleto in listaHistorial:
+        if boleto.numero_boleto == numero_boleto:
+            boleto_encontrado = boleto
+            break
+    if boleto_encontrado:
+        boleto_encontrado.cancelado = True
+        print("\n\t¡El boleto ha sido cancelado exitosamente!")
+    else:
+        print("\n\tNo se encontró ningún boleto con el número proporcionado.")
+        
+
+def agregarHistorialFavoritos(correo, contrasena):
+    # Buscar el nodo del usuario que inició sesión
+    temp = listaUsuarios.primero
+    while temp:
+        if  temp.dato.nombre == correo and temp.dato.contrasena == contrasena:
+            # Añadir el historial de boletos y las películas favoritas al nodo del usuario
+            temp.dato.historial_Boletos = listaHistorial
+            temp.dato.peliculas_Favoritas = listaFavoritos
+            correo = None
+            contrasena = None
+            return
+        temp = temp.siguiente
+
+
 
 
 # API
@@ -791,7 +884,6 @@ def getUsuarios():
 
     except:
         return {"mensaje": "Error interno en el servidor", "status": 500}
-
 
 @app.route('/getPeliculas', methods=['GET'])
 def getPeliculas():
@@ -856,7 +948,6 @@ def getPeliculas():
     except:
         return {"mensaje": "Error interno en el servidor", "status": 500}
 
-
 @app.route('/getCine', methods=['GET'])
 def getCine():
     try:
@@ -888,7 +979,6 @@ def getCine():
         return jsonify(retorno)
     except:
         return {"mensaje": "Error interno en el servidor", "status": 500}
-
 
 @app.route('/getTarjeta', methods=['GET'])
 def getTarjeta():

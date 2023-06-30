@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="/static/styles.css" rel="stylesheet">
+    <title>Historial de Boletos</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light custom-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="/">Cinema USAC</a>
+            <a class="nav-link" href="/ventana_cliente">Regresar</a>
+        </div>
+    </nav><br><br>
+
+    <div class="container">
+        <table class="table">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Cine</th>
+                    <th>Número de boleto</th>
+                    <th>Número de sala</th>
+                    <th>Película</th>
+                    <th>Fecha función</th>
+                    <th>Hora función</th>
+                    <th>Número de boletos</th>
+                    <th>Número de asiento</th>
+                    <th>Monto pagado</th>
+                    <th>Estado boleto</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for boleto in historial %}
+                <tr>
+                    <td>{{ boleto.nombre }}</td>
+                    <td>{{ boleto.cine }}</td>
+                    <td>{{ boleto.numero_boleto }}</td>
+                    <td>{{ boleto.sala_encontrada }}</td>
+                    <td>{{ boleto.pelicula }}</td>
+                    <td>{{ boleto.fecha_funcion }}</td>
+                    <td>{{ boleto.hora_funcion }}</td>
+                    <td>{{ boleto.num_boletos }}</td>
+                    <td>{{ boleto.numero_asiento }}</td>
+                    <td>Q{{ boleto.monto_pagado }}</td>
+                    <td>{% if boleto.cancelado %}Cancelado{% else %}Activo{% endif %}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+        integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
