@@ -1274,4 +1274,4 @@ def logout():
 
 if __name__ == '__main__':
     crear_usuario_por_defecto()
-    app.run(debug=True)
+    app.run()
