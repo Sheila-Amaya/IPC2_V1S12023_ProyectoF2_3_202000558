@@ -616,7 +616,6 @@ def eliminar_tarjeta():
 # GESTION BOLETOS ADMINISTRADOR
 
 
-
 # REGISTRAR USUARIO CLIENTE
 @app.route('/agregar_usuario_cliente', methods=['GET', 'POST'])
 def agregar_cliente():
@@ -841,7 +840,7 @@ def agregarHistorialFavoritos(correo, contrasena):
             return
         temp = temp.siguiente
 
-#ADMINISTRADOR GESTINO BOLETOS
+#ADMINISTRADOR GESTION BOLETOS
 @app.route('/gestionar_boletos', methods=['GET', 'POST'])
 def gestionarBoletos():
     if request.method == 'POST':
@@ -850,7 +849,6 @@ def gestionarBoletos():
         
     # Render the template with available ticket numbers
     return render_template('gestionar_boletos.html', listaHistorial=listaHistorial)
-
 
 
 # API
