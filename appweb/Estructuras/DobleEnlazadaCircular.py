@@ -65,7 +65,7 @@ class CicularDobleEnlazada:
                 else:  # Si el nodo a eliminar está en medio de la lista
                     nodo_actual.anterior.siguiente = nodo_actual.siguiente
                     nodo_actual.siguiente.anterior = nodo_actual.anterior
-                self.length -= 1  # Decrement the length of the list
+                self.length -= 1  # decrementa el tamaño de la lista
                 return
 
             nodo_actual = nodo_actual.siguiente
@@ -206,7 +206,7 @@ class CicularDobleEnlazada:
                 else:  # Si el nodo a eliminar está en medio de la lista
                     nodo_actual.anterior.siguiente = nodo_actual.siguiente
                     nodo_actual.siguiente.anterior = nodo_actual.anterior
-                self.length -= 1  # Decrement the length of the list
+                self.length -= 1  
                 return
 
             nodo_actual = nodo_actual.siguiente
