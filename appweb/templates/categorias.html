@@ -35,9 +35,12 @@
             </thead>
             <tbody>
                 {% for categoria in categorias %}
+                {% set movie_count = categoria.pelicula.get_length() %}
+                {% for pelicula in categoria.pelicula %}
                 <tr>
+                    {% if loop.index == 1 %}
                     <td rowspan="{{ categoria.pelicula.get_length() }}">{{ categoria.nombre }}</td>
-                    {% for pelicula in categoria.pelicula %}
+                    {% endif %}
                     <td>{{ pelicula.titulo }}</td>
                     <td>{{ pelicula.director }}</td>
                     <td>{{ pelicula.anio }}</td>

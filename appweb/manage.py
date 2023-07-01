@@ -111,7 +111,7 @@ def upload_xml():
                 ultimoNodo = listaUsuarios.ultimo
                 ultimoNodo.siguiente = datosArchivo.primero
                 listaUsuarios.ultimo = datosArchivo.ultimo
-            return jsonify({'bien': 'Archivo XML cargado y procesado con exito'})
+            return jsonify({'message': 'Archivo XML cargado y procesado con exito'})
         else:
             return jsonify({'error': 'El archivo debe tener extensión .xml'})
 
@@ -223,7 +223,7 @@ def xml_categoria():
                         listaCategorias.agregarUltimo(temp.dato)
                         temp = temp.siguiente
 
-                return jsonify({'bien': 'Archivo XML cargado y procesado con exito'})
+                return jsonify({'message': 'Archivo XML cargado y procesado con exito'})
             else:
                 return jsonify({'error': 'El archivo debe tener extensión .xml'})
         # Si la solicitud es GET, simplemente muestra el formulario
@@ -319,7 +319,7 @@ def eliminar_categoria():
                 nombre_pelicula = request.form['nombre_pelicula']
                 pelicula = categoria.pelicula.buscarPeli(nombre_pelicula)
                 if pelicula is not None:
-                    categoria.pelicula.eliminar(nombre_pelicula)
+                    categoria.pelicula.eliminarP(nombre_pelicula)
                     mensaje = "La película ha sido eliminada de la categoría."
                 else:
                     mensaje = "No se encontró ninguna película con el nombre especificado."
@@ -359,9 +359,9 @@ def xml_sala():
 
             if resultado is not None:
                 listaCine, listaSala = resultado
-                return jsonify({'bien': 'Archivo XML cargado y procesado con exito'})
+                return jsonify({'message': 'Archivo XML cargado y procesado con exito'})
             else:
-                return jsonify({'error': 'El archivo debe tener extensión .xml'})
+                return jsonify({'error': 'El archivo debe tener extension .xml'})
 
         # Si la solicitud es GET, simplemente muestra el formulario
         return render_template('gestionU.html')
@@ -476,7 +476,7 @@ def upload_tarjetas():
         xml_file = request.files['xml_file']
 
         if xml_file.filename == '':
-            return jsonify({'error': 'No se ha seleccionado ningún archivo'})
+            return jsonify({'error': 'No se ha seleccionado ningun archivo'})
 
         if xml_file and xml_file.filename.endswith('.xml'):
             # Crear una instancia de la clase Lectura
@@ -491,9 +491,9 @@ def upload_tarjetas():
                 # Si la lista no está vacía, agregar los datos del archivo al final de la lista existente
                 listaTarjetas.agregarUltimo(datosArchivo)
 
-            return jsonify({'bien': 'Archivo XML cargado y procesado con éxito'})
+            return jsonify({'message': 'Archivo XML cargado y procesado con exito'})
         else:
-            return jsonify({'error': 'El archivo debe tener extensión .xml'})
+            return jsonify({'error': 'El archivo debe tener extension .xml'})
 
     # Si la solicitud es GET, simplemente muestra el formulario
     return render_template('gestionT.html')
