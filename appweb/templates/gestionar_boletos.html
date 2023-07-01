@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gestión de Boletos</title>
+</head>
+<body>
+    <h1>Gestión de Boletos</h1>
+    <form method="POST" action="/gestionar_boletos">
+        <label for="numero_boleto">Número de boleto a cancelar:</label>
+        <input type="text" name="numero_boleto" id="numero_boleto">
+        <button type="submit">Cancelar</button>
+    </form>
+    <h2>Números de boleto disponibles:</h2>
+    <ul>
+        {% for boleto in listaHistorial %}
+        <li>{{ boleto.numero_boleto }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

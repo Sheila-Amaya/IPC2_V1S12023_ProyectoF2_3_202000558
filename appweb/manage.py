@@ -775,7 +775,7 @@ def comprar_boletos():
         else:
             error = "No se encontró el cine especificado"
 
-        return render_template('comprar_boletos.html', cines=listaCine,categorias=listaCategorias, error=error)
+        return render_template('comprar_boletos.html', cines=listaCine,categorias=listaCategorias)
 
     return render_template('comprar_boletos.html', cines=listaCine,categorias=listaCategorias)
 
@@ -801,7 +801,6 @@ def generarFactura(nombre ,NIT,direccion, categoria, cine, pelicula, num_boletos
     boleto = Boleto(nombre, cine, "#USACIPC2_202000558_" + str(boletos), pelicula, fecha, hora, num_boletos,sala, numero_asiento, total,False)
     listaHistorial.append(boleto)
 
-
 # HISTORIAL BOLETO
 @app.route('/lista_historial')
 def lista_():
@@ -815,8 +814,6 @@ def lista_():
                     #self.listaUsuario.mostrarUsuario()
             temp = temp.siguiente
     return render_template('historial_boletos.html', historial=listaHistorial)
-
-
 
 def cancelarBoleto(numero_boleto):
     boleto_encontrado = None
@@ -844,6 +841,15 @@ def agregarHistorialFavoritos(correo, contrasena):
             return
         temp = temp.siguiente
 
+#ADMINISTRADOR GESTINO BOLETOS
+@app.route('/gestionar_boletos', methods=['GET', 'POST'])
+def gestionarBoletos():
+    if request.method == 'POST':
+        boletoCancelado = request.form['numero_boleto']
+        cancelarBoleto(boletoCancelado)
+        
+    # Render the template with available ticket numbers
+    return render_template('gestionar_boletos.html', listaHistorial=listaHistorial)
 
 
 
